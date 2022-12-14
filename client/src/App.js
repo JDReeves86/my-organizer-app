@@ -9,6 +9,8 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import "./App.css";
+import Hero from "../components/Hero";
+import Navbar from "../components/Navbar/Navbar";
 import Login from "./pages/Login";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -36,13 +38,10 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
+        <Hero attr={"is-medium is-success"}>TEST</Hero>
+        <Navbar />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Login />
-            }
-          />
+          <Route path="/" element={<Login />} />
         </Routes>
       </Router>
     </ApolloProvider>
