@@ -8,17 +8,19 @@ import CardHeader from "../Card/CardHeader";
 import CardContent from "../Card/CardContent";
 import PComponent from "../Typography/PComponent";
 
-function LoginForm({ props }) {
-  const [landingState, dispatch] = useLandingContext();
+function SignupForm() {
+  let [landingState, dispatch] = useLandingContext();
   let [hidden, setHidden] = useState("is-hidden");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+  let [username, setUsername] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const submission = {
       email,
       password,
+      username,
     };
 
     try {
@@ -30,6 +32,7 @@ function LoginForm({ props }) {
 
     setEmail("");
     setPassword("");
+    setUsername("");
   };
 
   const handleChange = (event) => {
@@ -44,6 +47,9 @@ function LoginForm({ props }) {
       case "password":
         setPassword(inputValue);
         break;
+      case "username":
+        setUsername(inputValue);
+        break;
       default:
         return;
     }
@@ -51,7 +57,7 @@ function LoginForm({ props }) {
   return (
     <CardContainer attr={"has-background-grey-light"}>
       <CardHeader attr={"p-1"}>
-        <PComponent attr={"card-header-title"}>Login my dude!</PComponent>
+        <PComponent attr={"card-header-title"}>Create an account</PComponent>
       </CardHeader>
       <CardContent>
         <form>
@@ -65,6 +71,22 @@ function LoginForm({ props }) {
                 name="email"
                 type="email"
                 placeholder="email"
+                required
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label" htmlFor="username">
+              Username
+            </label>
+            <div className="control">
+              <input
+                className="input"
+                name="username"
+                type="username"
+                placeholder="username"
                 required
                 onChange={handleChange}
               />
@@ -86,9 +108,24 @@ function LoginForm({ props }) {
               />
             </div>
           </div>
+          <div className="field">
+            <label className="label" htmlFor="password2">
+              Re-type your password
+            </label>
+            <div className="control">
+              <input
+                className="input"
+                name="password2"
+                type="password2"
+                placeholder="password"
+                required
+                onChange={handleChange}
+              />
+            </div>
+          </div>
           <div className="has-text-centered">
             <p className={`has-text-danger is-size-7 ${hidden}`}>
-              Incorrect password
+              Passwords do not match!
             </p>
           </div>
 
@@ -102,11 +139,11 @@ function LoginForm({ props }) {
                 action={() => {
                   dispatch({
                     type: CHANGE_LOGIN_CARD,
-                    payload: "sign up",
+                    payload: "login",
                   });
                 }}
               >
-                Sign up
+                Sign in
               </Button>
             </Control>
           </div>
@@ -116,4 +153,4 @@ function LoginForm({ props }) {
   );
 }
 
-export default LoginForm;
+export default SignupForm;

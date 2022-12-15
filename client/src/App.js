@@ -8,12 +8,12 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { LandingProvider } from "./utils/context/LandingContext";
 import "./App.css";
 import Hero from "./components/Hero";
-import Navbar from "./components/Navbar/Navbar"
+import Navbar from "./components/Navbar/Navbar";
 import Login from "./pages/Login";
-import HComponent from './components/Typography/HComponent'
-
+import HComponent from "./components/Typography/HComponent";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -41,12 +41,16 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <Hero attr={"has-background-danger-dark has-text-white"}>
-          <HComponent attr={"is-size-3 has-text-centered"}>Not your Fathers Planner</HComponent>
+          <HComponent attr={"is-size-3 has-text-centered"}>
+            Not your Fathers Planner
+          </HComponent>
         </Hero>
-        <Navbar attr={"has-background-grey-lighter"}/>
-        <Routes>
-          <Route path="/" element={<Login />} />
-        </Routes>
+        <Navbar attr={"has-background-grey-lighter"} />
+        <LandingProvider>
+          <Routes>
+            <Route path="/" element={<Login />} />
+          </Routes>
+        </LandingProvider>
       </Router>
     </ApolloProvider>
   );

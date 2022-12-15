@@ -3,7 +3,6 @@ import Logo from "../giraffe-1120.png"
 import NavBurger from "./Components/NavBurger";
 import NavMenu from "./Components/NavMenu"
 import Image from "../Image/Image";
-import NavItem from "./Components/NavItem";
 
 export default function Navbar({ attr, id }) {
   // setActive is for toggling menus on/off 

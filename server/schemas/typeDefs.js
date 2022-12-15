@@ -13,6 +13,10 @@ const typeDefs = gql`
     taskText: String
     dueDate: String
   }
+  type Auth {
+    token: ID!
+    user: User
+  }
   type Query {
     getMe: User
   }
