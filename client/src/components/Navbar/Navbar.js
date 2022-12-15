@@ -21,12 +21,12 @@ export default function Navbar({ attr, id }) {
     },
     {
       title: "Task Manager",
-      href: "/dashboard",
+      href: "/tasks",
       linked: true
     },
     {
       title: "Notes",
-      href: "/therearenopuppies",
+      href: "/notes",
       linked: true
     },
     {
