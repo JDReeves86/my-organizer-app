@@ -10,8 +10,10 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import "./App.css";
 import Hero from "./components/Hero";
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components/Navbar/Navbar"
 import Login from "./pages/Login";
+import HComponent from './components/Typography/HComponent'
+
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -38,8 +40,10 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Hero attr={"is-medium has-background-danger-dark has-text-white"}>TEST</Hero>
-        <Navbar />
+        <Hero attr={"has-background-danger-dark has-text-white"}>
+          <HComponent attr={"is-size-3 has-text-centered"}>Not your Fathers Planner</HComponent>
+        </Hero>
+        <Navbar attr={"has-background-grey-lighter"}/>
         <Routes>
           <Route path="/" element={<Login />} />
         </Routes>

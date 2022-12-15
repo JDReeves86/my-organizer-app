@@ -1,44 +1,61 @@
 import React, { useState } from "react";
-import DesktopNav from "./DesktopNav";
-import MobileNav from "./MobileNav";
+import Logo from "../giraffe-1120.png"
+import NavBurger from "./Components/NavBurger";
+import NavMenu from "./Components/NavMenu"
+import Image from "../Image/Image";
+import NavItem from "./Components/NavItem";
 
-// https://bulma.io/documentation/components/navbar/
+export default function Navbar({ attr, id }) {
+  // setActive is for toggling menus on/off 
+  const [isActive, setActive] = useState(false);
+  // Pass data into the navMenu and it will generate buttons for you with the title being displayed. Set 'linked' to true if you want
+  // the navItem generated to be a clickable link. Set 'linked' to false if yoiu want it to be simple text e.g. project name.
+  // When placing navbar, it takes two props: attr & id; attr will take class based css attribues e.g Bulma. While id will take whatever
+  // id you wish to give it for custom css if desired. 
+  // To use Navbar to it's fullest extent you will need to provide some fine tuning to your needs/wants for the project. i.e adding navitems, dropdown menus, etc.
+  const exampleData = [
+    {
+      title: "Home",
+      href: "/",
+      linked: true
+    },
+    {
+      title: "Task Manager",
+      href: "/dashboard",
+      linked: true
+    },
+    {
+      title: "Notes",
+      href: "/therearenopuppies",
+      linked: true
+    },
+    {
+      title: "Nothing",
+      linked: false
+    }
+  ]
 
-// Takes values of navbar items to display
-const navItems = ["Task Tracker", "Daily Planner", "Note Keeper"];
-// Takes values to be placed into navbar dropdown. May leave array empty. 
-// Or remove "menu={menuitems}" entirely. Either approach will result in the dropdown not being rendered.
-const menuItems = []
-
-function Navbar() {
-  const [clicked, isClicked] = useState(false);
   return (
     <nav
-      className="navbar has-background-light"
+      className={`navbar ${attr}`}
+      id={id}
       role="navigation"
       aria-label="main navigation"
     >
-      {clicked ? (
-        <MobileNav
-          isClicked={isClicked}
-          clicked={clicked}
-          links={navItems}
-          // menu={menuItems}
-          // setPage={setPage}
-          active='navbar-burger is-active'
-        />
-      ) : (
-        <DesktopNav
-          isClicked={isClicked}
-          clicked={clicked}
-          links={navItems}
-          // menu={menuItems}
-          // setPage={setPage}
-          inactive="navbar-burger"
-        />
-      )}
+      <div className="navbar-brand">
+        <a
+          className="navbar-item"
+        >
+          <Image src={Logo} alt="logo" />
+        </a>
+        <NavBurger action={setActive} isActive={isActive} />
+      </div>
+      <div className="navbar-end">
+        <NavMenu isActive={isActive}>
+          {exampleData}
+          {/* Feed an array of values and the menu will create nav menu buittons for you. */}
+        </NavMenu>
+      </div>
     </nav>
   );
 }
-
-export default Navbar; 
