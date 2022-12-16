@@ -7,16 +7,23 @@ import CardContainer from "../Card/CardContainer";
 import CardHeader from "../Card/CardHeader";
 import CardContent from "../Card/CardContent";
 import PComponent from "../Typography/PComponent";
+import FormInput from "./Components/FormInput";
 
 function SignupForm() {
   let [landingState, dispatch] = useLandingContext();
   let [hidden, setHidden] = useState("is-hidden");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+  let [password2, setPassword2] = useState("");
   let [username, setUsername] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (password !== password2) {
+      setHidden("is-visible");
+      return;
+    }
+
     const submission = {
       email,
       password,
@@ -32,6 +39,7 @@ function SignupForm() {
 
     setEmail("");
     setPassword("");
+    setPassword2("");
     setUsername("");
   };
 
@@ -50,6 +58,9 @@ function SignupForm() {
       case "username":
         setUsername(inputValue);
         break;
+      case "password2":
+        setPassword2(inputValue);
+        break;
       default:
         return;
     }
@@ -61,77 +72,52 @@ function SignupForm() {
       </CardHeader>
       <CardContent>
         <form>
-          <div className="field">
-            <label className="label" htmlFor="email">
-              Email
-            </label>
-            <div className="control">
-              <input
-                className="input"
-                name="email"
-                type="email"
-                placeholder="email"
-                required
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="field">
-            <label className="label" htmlFor="username">
-              Username
-            </label>
-            <div className="control">
-              <input
-                className="input"
-                name="username"
-                type="username"
-                placeholder="username"
-                required
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="field">
-            <label className="label" htmlFor="password">
-              Password
-            </label>
-            <div className="control">
-              <input
-                className="input"
-                name="password"
-                type="password"
-                placeholder="password"
-                required
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label" htmlFor="password2">
-              Re-type your password
-            </label>
-            <div className="control">
-              <input
-                className="input"
-                name="password2"
-                type="password2"
-                placeholder="password"
-                required
-                onChange={handleChange}
-              />
-            </div>
-          </div>
+          <FormInput
+            label={"Email"}
+            name={"email"}
+            type={"email"}
+            placeholder={"E-mail"}
+            required={true}
+            action={handleChange}
+          />
+          <FormInput
+            label={"Username"}
+            name={"username"}
+            type={"username"}
+            placeholder={"Username"}
+            required={true}
+            action={handleChange}
+          />
+          <FormInput
+            label={"Password"}
+            name={"password"}
+            type={"password"}
+            placeholder={"Password"}
+            required={true}
+            action={handleChange}
+          />
+          <FormInput
+            label={"Re-type your password"}
+            name={"password2"}
+            type={"password2"}
+            placeholder={"Re-type your password"}
+            required={true}
+            action={handleChange}
+          />
           <div className="has-text-centered">
-            <p className={`has-text-danger is-size-7 ${hidden}`}>
+            <p
+              className={`has-text-danger is-size-6 has-text-weight-semibold ${hidden}`}
+            >
               Passwords do not match!
             </p>
           </div>
 
-          <div className="field">
+          <div className="field pt-3">
             <Control>
-              <Button attr={"is-info mr-2 is-normal is-responsive"} action={handleSubmit}>
+              <Button
+                attr={"is-info mr-2 is-normal is-responsive"}
+                action={handleSubmit}
+              >
                 Submit
               </Button>
               <Button

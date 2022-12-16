@@ -7,6 +7,7 @@ import CardContainer from "../Card/CardContainer";
 import CardHeader from "../Card/CardHeader";
 import CardContent from "../Card/CardContent";
 import PComponent from "../Typography/PComponent";
+import FormInput from "./Components/FormInput";
 
 function LoginForm({ props }) {
   const [landingState, dispatch] = useLandingContext();
@@ -55,44 +56,29 @@ function LoginForm({ props }) {
       </CardHeader>
       <CardContent>
         <form>
-          <div className="field">
-            <label className="label" htmlFor="email">
-              Email
-            </label>
-            <div className="control">
-              <input
-                className="input"
-                name="email"
-                type="email"
-                placeholder="email"
-                required
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="field">
-            <label className="label" htmlFor="password">
-              Password
-            </label>
-            <div className="control">
-              <input
-                className="input"
-                name="password"
-                type="password"
-                placeholder="password"
-                required
-                onChange={handleChange}
-              />
-            </div>
-          </div>
+          <FormInput
+            label={"E-mail"}
+            name={"email"}
+            type={"email"}
+            placeholder={"E-mail"}
+            required={true}
+            action={handleChange}
+          />
+          <FormInput
+            label={"Password"}
+            name={"password"}
+            type={"password"}
+            placeholder={"Password"}
+            required={true}
+            action={handleChange}
+          />
           <div className="has-text-centered">
             <p className={`has-text-danger is-size-7 ${hidden}`}>
               Incorrect password
             </p>
           </div>
 
-          <div className="field">
+          <div className="field pt-3">
             <Control>
               <Button attr={"is-info mr-2 is-normal is-responsive"} action={handleSubmit}>
                 Submit
