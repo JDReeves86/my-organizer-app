@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
 import { useLandingContext } from "../../utils/context/LandingContext";
 import { CHANGE_LOGIN_CARD } from "../../utils/actions";
+import { CREATE_USER } from "../../utils/mutations";
 import Control from "./Components/Control";
 import Button from "../Button/Button";
 import CardContainer from "../Card/CardContainer";
@@ -8,6 +10,8 @@ import CardHeader from "../Card/CardHeader";
 import CardContent from "../Card/CardContent";
 import PComponent from "../Typography/PComponent";
 import FormInput from "./Components/FormInput";
+import ErrorModal from "../Modals/ErrorModal";
+import { parseError } from "../../utils/helpers";
 
 function SignupForm() {
   let [landingState, dispatch] = useLandingContext();
@@ -16,7 +20,11 @@ function SignupForm() {
   let [password, setPassword] = useState("");
   let [password2, setPassword2] = useState("");
   let [username, setUsername] = useState("");
-
+  const [createUser, { error }] = useMutation(CREATE_USER);
+  if (error) {
+    const errorMessage = parseError(error.message)
+    return (<ErrorModal message={errorMessage} activate={true}/>)
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== password2) {
@@ -24,17 +32,14 @@ function SignupForm() {
       return;
     }
 
-    const submission = {
-      email,
-      password,
-      username,
-    };
-
     try {
-      console.log(`handle submit function called`, submission);
-    } catch (err) {
-      setHidden("is-visible"); // Need to move this once password validation error is returned & exchange for more generaic login failure option
-      throw new Error("Something went wrong!");
+      const { data } = await createUser({
+        variables: { email, password, username },
+      });
+      console.log(data);
+    } catch (error) {
+      const errorMessage = parseError(error.message)
+      return <ErrorModal message={errorMessage} activate={true}/>
     }
 
     setEmail("");
@@ -99,7 +104,7 @@ function SignupForm() {
           <FormInput
             label={"Re-type your password"}
             name={"password2"}
-            type={"password2"}
+            type={"password"}
             placeholder={"Re-type your password"}
             required={true}
             action={handleChange}
@@ -112,7 +117,7 @@ function SignupForm() {
             </p>
           </div>
 
-          <div className="field pt-3">
+          <div className="field pt-3 is-grouped is-grouped-centered">
             <Control>
               <Button
                 attr={"is-info mr-2 is-normal is-responsive"}

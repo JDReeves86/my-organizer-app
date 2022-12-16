@@ -78,7 +78,7 @@ function LoginForm({ props }) {
             </p>
           </div>
 
-          <div className="field pt-3">
+          <div className="field pt-3 is-grouped is-grouped-centered">
             <Control>
               <Button attr={"is-info mr-2 is-normal is-responsive"} action={handleSubmit}>
                 Submit

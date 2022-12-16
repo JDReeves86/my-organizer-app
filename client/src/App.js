@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
 import {
@@ -9,7 +8,6 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { LandingProvider } from "./utils/context/LandingContext";
-import "./App.css";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar/Navbar";
 import Login from "./pages/Login";
