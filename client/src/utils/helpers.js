@@ -3,7 +3,8 @@ const parseError = (error) => {
         "ValidationError:",
         "email:",
         "password:",
-        "username:"
+        "username:",
+        "Error:"
     ]
     const split = error.split(" ")
     const returnString = split.filter((el) => {

@@ -1,4 +1,5 @@
 const { User, Task } = require("../models");
+const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require("apollo-server");
 
 const resolvers = {
@@ -8,8 +9,22 @@ const resolvers = {
     },
   },
   Mutation: {
-    login: async (parent, args, context) => {
-      console.log(args);
+    login: async (parent, { email, password }, context) => {
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw new AuthenticationError(
+          "The email you entered did not match our records."
+        );
+      }
+
+      const correctPw = await user.comparePassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect password");
+      }
+
+      const token = signToken(user);
+      return { token, user };
     },
     createNewUser: async (parent, { username, password, email }, context) => {
       try {
@@ -18,17 +33,16 @@ const resolvers = {
           password,
           email,
         });
-  
+
         if (!user) {
           return new AuthenticationError("Failed to create user");
         }
         return user;
+      } catch (err) {
+        return new Error(err);
       }
-       catch(err) {
-        return new Error(err)
-      }
-    }
-  }
-}
+    },
+  },
+};
 
 module.exports = resolvers;

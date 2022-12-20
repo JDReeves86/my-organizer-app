@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt")
 const {
   passStrength,
   emailValidate,
@@ -57,12 +58,6 @@ const userSchema = new Schema(
       getters: true,
       virtuals: true,
     },
-    statics: {
-      async comparePassword(password) {
-        const result = await bcrypt.compare(password, this.password);
-        return result ? true : false;
-      },
-    },
     virtuals: {
       taskTotal: {
         get() {
@@ -73,8 +68,20 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.methods.comparePassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
+
 userSchema.pre("save", async function () {
   this.password = await hashPass(this.password);
+});
+
+userSchema.post('save', function(error, doc, next) {
+  if (error.name === 'MongoServerError' && error.code === 11000) {
+    next(new Error('An account with that e-mail already exists'));
+  } else {
+    next();
+  }
 });
 
 const User = model("User", userSchema);

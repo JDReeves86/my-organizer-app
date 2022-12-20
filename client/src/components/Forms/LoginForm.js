@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useLandingContext } from "../../utils/context/LandingContext";
 import { CHANGE_LOGIN_CARD } from "../../utils/actions";
+import { LOGIN } from "../../utils/mutations";
+import { useMutation } from "@apollo/client";
 import Control from "./Components/Control";
 import Button from "../Button/Button";
 import CardContainer from "../Card/CardContainer";
@@ -8,12 +10,23 @@ import CardHeader from "../Card/CardHeader";
 import CardContent from "../Card/CardContent";
 import PComponent from "../Typography/PComponent";
 import FormInput from "./Components/FormInput";
+import ErrorModal from "../Modals/ErrorModal";
+import Loader from "../Loader/Loader";
 
 function LoginForm({ props }) {
   const [landingState, dispatch] = useLandingContext();
+  const [loginUser, { error, loading }] = useMutation(LOGIN);
   let [hidden, setHidden] = useState("is-hidden");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+
+  if (error) {
+    return <ErrorModal message={error.message} activate={true} />;
+  }
+
+  if (loading) {
+    return <Loader />
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,10 +36,13 @@ function LoginForm({ props }) {
     };
 
     try {
-      console.log(`handle submit function called`, submission);
+      const { data } = await loginUser({
+        variables: { ...submission },
+      });
+      console.log(data);
     } catch (err) {
-      setHidden("is-visible"); // Need to move this once password validation error is returned & exchange for more generaic login failure option
-      throw new Error("Something went wrong!");
+      setHidden("is-visible");
+      throw new Error(err);
     }
 
     setEmail("");
@@ -80,7 +96,10 @@ function LoginForm({ props }) {
 
           <div className="field pt-3 is-grouped is-grouped-centered">
             <Control>
-              <Button attr={"is-info mr-2 is-normal is-responsive"} action={handleSubmit}>
+              <Button
+                attr={"is-info mr-2 is-normal is-responsive"}
+                action={handleSubmit}
+              >
                 Submit
               </Button>
               <Button
