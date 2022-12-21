@@ -14,11 +14,6 @@ export default function Navbar({ attr, id }) {
   // To use Navbar to it's fullest extent you will need to provide some fine tuning to your needs/wants for the project. i.e adding navitems, dropdown menus, etc.
   const exampleData = [
     {
-      title: "Home",
-      href: "/",
-      linked: true
-    },
-    {
       title: "Task Manager",
       href: "/tasks",
       linked: true
@@ -52,7 +47,7 @@ export default function Navbar({ attr, id }) {
       <div className="navbar-end">
         <NavMenu isActive={isActive}>
           {exampleData}
-          {/* Feed an array of values and the menu will create nav menu buittons for you. */}
+          {/* Feed an array of values and the menu will create nav menu buttons for you. */}
         </NavMenu>
       </div>
     </nav>

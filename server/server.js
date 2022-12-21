@@ -1,11 +1,12 @@
 const express = require("express");
 const path = require("path");
 const db = require("./config/connection");
-
+// const cookieParser = require("cookie-parser")
+// const session = require("express-session")
 const { ApolloServer } = require("apollo-server-express");
 
 const { typeDefs, resolvers } = require("./schemas");
-// const { authMiddleware } = require("./utils/auth")
+const { authMiddleware } = require("./utils/auth")
  
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -13,12 +14,21 @@ const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // context: authMiddleware,
+  context: authMiddleware,
   // cache: "bounded"
 });
 
+// const sess = {
+//   cookie: {
+//     maxAge: 120 * 60 * 1000,
+//     httpOnly: true
+//   }
+// }
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// app.use(cookieParser())
+// app.use(session(sess))
 
 const startApolloServer = async (typeDefs, resolvers) => {
   await server.start();

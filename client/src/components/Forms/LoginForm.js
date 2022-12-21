@@ -3,6 +3,7 @@ import { useLandingContext } from "../../utils/context/LandingContext";
 import { CHANGE_LOGIN_CARD } from "../../utils/actions";
 import { LOGIN } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
+import Auth from "../../utils/auth"
 import Control from "./Components/Control";
 import Button from "../Button/Button";
 import CardContainer from "../Card/CardContainer";
@@ -39,7 +40,8 @@ function LoginForm({ props }) {
       const { data } = await loginUser({
         variables: { ...submission },
       });
-      console.log(data);
+      Auth.login(data.login.token);
+      window.location.assign('/home')
     } catch (err) {
       setHidden("is-visible");
       throw new Error(err);

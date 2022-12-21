@@ -32,6 +32,7 @@ function NavMenu({ isActive, children }) {
             </NavItem>
           );
         })}
+        <NavItem href="/login" linked={true}>Login</NavItem>
       </div>
     </div>
   );

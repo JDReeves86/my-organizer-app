@@ -24,6 +24,12 @@ const resolvers = {
       }
 
       const token = signToken(user);
+      context.res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 8600,
+      });
+      console.log(context.res)
       return { token, user };
     },
     createNewUser: async (parent, { username, password, email }, context) => {
