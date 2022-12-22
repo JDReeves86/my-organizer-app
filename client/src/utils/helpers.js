@@ -13,6 +13,16 @@ const parseError = (error) => {
     return returnString.join(" ")
 }
 
+const capitalizeFirstLetter = (string) => {
+    const newString = string.split("")
+    const capLetter = newString[0].toUpperCase()
+    newString.shift()
+    newString.unshift(capLetter)
+    return newString.join("")
+    
+}
+
 module.exports = {
-    parseError
+    parseError,
+    capitalizeFirstLetter
 }

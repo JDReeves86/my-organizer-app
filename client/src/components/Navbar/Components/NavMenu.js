@@ -3,6 +3,10 @@ import Auth from "../../../utils/auth";
 import NavItem from "./NavItem";
 
 function NavMenu({ isActive, children }) {
+  function logoutUser() {
+    localStorage.clear();
+    window.location.replace("/")
+  }
   return Auth.loggedIn() ? (
     <div
       id="navbarBasicExample"
@@ -11,12 +15,12 @@ function NavMenu({ isActive, children }) {
       <div className="navbar-end">
         {children.map((el, i) => {
           return (
-            <NavItem href={el.href} key={i}>
+            <NavItem href={el.href} key={i} linked={el.linked}>
               {el.title}
             </NavItem>
           );
         })}
-        <NavItem  /*action={logoutUser}*/  >Logout</NavItem>
+        <NavItem action={() => {logoutUser()}} linked={true}>Logout</NavItem>
       </div>
     </div>
   ) : (

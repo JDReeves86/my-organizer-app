@@ -4,7 +4,7 @@ import LoginForm from "../components/Forms/LoginForm";
 import SignupForm from "../components/Forms/SignupForm";
 import Column from "../components/Columns/Column";
 import Container from "../components/Container/Container";
-import ErrorModal from "../components/Modals/ErrorModal";
+
 
 function Login() {
   const [loginState] = useLandingContext();

@@ -5,10 +5,9 @@ import { CHANGE_LOGIN_CARD } from "../../utils/actions";
 import { CREATE_USER } from "../../utils/mutations";
 import Control from "./Components/Control";
 import Button from "../Button/Button";
-import CardContainer from "../Card/CardContainer";
-import CardHeader from "../Card/CardHeader";
-import CardContent from "../Card/CardContent";
-import PComponent from "../Typography/PComponent";
+import CardContainer from "../Card/Components/CardContainer";
+import CardHeader from "../Card/Components/CardHeader";
+import CardContent from "../Card/Components/CardContent";
 import FormInput from "./Components/FormInput";
 import ErrorModal from "../Modals/ErrorModal";
 import { parseError } from "../../utils/helpers";
@@ -73,7 +72,7 @@ function SignupForm() {
   return (
     <CardContainer attr={"has-background-grey-light"}>
       <CardHeader attr={"p-1"}>
-        <PComponent attr={"card-header-title"}>Create an account</PComponent>
+        <p className="card-header-title">Create an account</p>
       </CardHeader>
       <CardContent>
         <form>

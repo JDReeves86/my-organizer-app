@@ -6,10 +6,9 @@ import { useMutation } from "@apollo/client";
 import Auth from "../../utils/auth"
 import Control from "./Components/Control";
 import Button from "../Button/Button";
-import CardContainer from "../Card/CardContainer";
-import CardHeader from "../Card/CardHeader";
-import CardContent from "../Card/CardContent";
-import PComponent from "../Typography/PComponent";
+import CardContainer from "../Card/Components/CardContainer";
+import CardHeader from "../Card/Components/CardHeader";
+import CardContent from "../Card/Components/CardContent";
 import FormInput from "./Components/FormInput";
 import ErrorModal from "../Modals/ErrorModal";
 import Loader from "../Loader/Loader";
@@ -41,6 +40,11 @@ function LoginForm({ props }) {
         variables: { ...submission },
       });
       Auth.login(data.login.token);
+      const savedUser = {
+        username: data.login.user.username,
+        id: data.login.user._id
+      }
+      localStorage.setItem("user", JSON.stringify(savedUser))
       window.location.assign('/home')
     } catch (err) {
       setHidden("is-visible");
@@ -70,7 +74,7 @@ function LoginForm({ props }) {
   return (
     <CardContainer attr={"has-background-grey-light"}>
       <CardHeader attr={"p-1"}>
-        <PComponent attr={"card-header-title"}>Login my dude!</PComponent>
+        <p className="card-header-title">Login my dude!</p>
       </CardHeader>
       <CardContent>
         <form>

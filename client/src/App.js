@@ -13,9 +13,9 @@ import Navbar from "./components/Navbar/Navbar";
 import Splash from "./pages/Splash";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import HComponent from "./components/Typography/HComponent";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Tasks from "./pages/Tasks";
 
 const httpLink = createHttpLink({
   uri: "graphql",
@@ -41,9 +41,9 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <Hero attr={"has-background-danger-dark has-text-white"}>
-          <HComponent attr={"is-size-3 has-text-centered"}>
+          <h1 className="is-size-3 has-text-centered">
             Not your Fathers Planner
-          </HComponent>
+          </h1>
         </Hero>
         <Navbar attr={"has-background-grey-lighter"} />
         <LandingProvider>
@@ -51,6 +51,7 @@ function App() {
             <Route path="/" element={<Splash />} />
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Dashboard />} />
+            <Route path="/tasks" element={<Tasks />} />
           </Routes>
         </LandingProvider>
       </Router>
