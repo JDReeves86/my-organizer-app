@@ -48,6 +48,20 @@ const resolvers = {
         return new Error(err);
       }
     },
+    saveTask: async (parent, { input }, context) => {
+      const formattedDate = new Date(
+        `${input.dueDate.month} ${input.dueDate.day} ${input.dueDate.year}`
+      );
+      const newTask = await Task.create({
+        taskText: input.taskText,
+        dueDate: formattedDate,
+      });
+      await User.findByIdAndUpdate(context.user._id, {
+        $addToSet: {
+          tasks: newTask,
+        },
+      });
+    },
   },
 };
 

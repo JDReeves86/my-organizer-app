@@ -7,6 +7,10 @@ const taskSchema = new Schema(
       type: String,
       trim: true,
     },
+    dueDate: {
+      type: Date,
+      
+    },
     createdAt: {
       type: Date,
       default: new Date(),

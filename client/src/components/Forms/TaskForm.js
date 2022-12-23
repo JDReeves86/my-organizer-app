@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
 import { calculateStartYear } from "../../utils/helpers";
 import FormInput from "./Components/FormInput";
 import FormSelect from "./Components/FormSelect";
 import Column from "../Columns/Column";
 import Button from "../Button/Button";
+import ErrorModal from "../Modals/ErrorModal";
+import Loader from "../Loader/Loader";
+import { SAVE_TASK } from "../../utils/mutations";
 
 function TaskForm() {
-  const [taskTitle, setTaskTitle] = useState("");
+  const [taskText, setTaskTitle] = useState("");
   const [dueDate, setDueDate] = useState({
     month: "January",
     day: 1,
@@ -29,10 +33,7 @@ function TaskForm() {
   ];
   const dayOptions = [];
   const yearOptions = [];
-  let submission = {
-    taskTitle,
-    dueDate,
-  };
+ 
   for (let i = 1; i <= daysInMonth; i++) {
     dayOptions.push(i);
   }
@@ -73,26 +74,42 @@ function TaskForm() {
         }
         break;
       case "day":
-        setDueDate((params) => ({ ...params, day: inputValue }));
+        setDueDate((params) => ({ ...params, day: Number(inputValue) }));
         break;
       case "year":
-        setDueDate((params) => ({ ...params, year: inputValue }));
+        setDueDate((params) => ({ ...params, year: Number(inputValue) }));
         break;
       default:
         return;
     }
   };
 
-  const handleSubmit = (ev) => {
-    ev.preventDefault();
-    console.log(submission);
+  const [saveThisTask, { error, loading }] = useMutation(SAVE_TASK);
+  if (error) {
+    return <ErrorModal message={error.message} activate={true} />;
+  }
 
-    setTaskTitle("");
-    setDueDate({
-      month: "January",
-      day: 1,
-      year: new Date().getFullYear(),
-    });
+  if (loading) {
+    return <Loader />;
+  }
+
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    try {
+      console.log({ taskText, dueDate })
+      const { data } = await saveThisTask({
+        variables: {input: { taskText, dueDate }},
+      });
+
+      setTaskTitle("");
+      setDueDate({
+        month: "January",
+        day: 1,
+        year: new Date().getFullYear(),
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
   };
 
   const handleClear = (ev) => {
