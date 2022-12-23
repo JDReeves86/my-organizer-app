@@ -7,8 +7,8 @@ function FormSelect({ label, name, options, required, action }) {
       <div className="control">
         <div className="select">
           <select name={name} required onChange={action}>
-            {options.map((el) => {
-              return <option>{el}</option>;
+            {options.map((el, i) => {
+              return <option key={i}>{el}</option>;
             })}
           </select>
         </div>
@@ -20,8 +20,8 @@ function FormSelect({ label, name, options, required, action }) {
       <div className="control">
         <div className="select">
           <select name={name}>
-            {options.map((el) => {
-              return <option>{el}</option>;
+            {options.map((el, i) => {
+              return <option key={i}>{el}</option>;
             })}
           </select>
         </div>
