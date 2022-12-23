@@ -28,6 +28,7 @@ export const SAVE_TASK = gql`
     saveTask(input: $input) {
       taskText
       dueDate
+      active
     }
   }
 `

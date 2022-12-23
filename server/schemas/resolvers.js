@@ -8,7 +8,7 @@ const resolvers = {
       console.log(context.user);
     },
     getMyTasks: async(parent, args, context) => {
-      const activeUser = await User.findById(context.user._id).populate("tasks")
+      const activeUser = await User.findById(context.user._id).populate("activeTasks")
       return activeUser
     },
     getTask: async(parent, { _id }, context) => {
@@ -64,7 +64,7 @@ const resolvers = {
       });
       await User.findByIdAndUpdate(context.user._id, {
         $addToSet: {
-          tasks: newTask,
+          activeTasks: newTask,
         },
       });
     },

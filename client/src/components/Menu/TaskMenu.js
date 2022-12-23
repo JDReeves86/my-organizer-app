@@ -14,14 +14,15 @@ function TaskMenu({ list, action }) {
 
   const handleClick = async (event) => {
     const clicked = event.target.attributes.taskid.value;
-    await getTask({
+    const taskData = await getTask({
       variables: { taskId: storedTaskIDs[clicked] },
     });
-    if (loading) return
-    const activeTask = {
-      new: false,
-      data,
-    };
+
+   let activeTask = {
+    new: loading,
+    taskData
+   }
+
     action(activeTask);
   };
 

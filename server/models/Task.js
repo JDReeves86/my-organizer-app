@@ -20,6 +20,10 @@ const taskSchema = new Schema(
         return formatDate(date);
       },
     },
+    active: {
+      type: Boolean,
+      default: true
+    },
   },
   {
     toJSON: {

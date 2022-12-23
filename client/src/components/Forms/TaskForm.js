@@ -99,7 +99,7 @@ function TaskForm() {
         `${dateDue.month} ${dateDue.day} ${dateDue.year}`
       );
       const { data } = await saveThisTask({
-        variables: { input: { taskText, dueDate } },
+        variables: { input: { taskText, dueDate, active: true } },
       });
 
       setTaskTitle("");

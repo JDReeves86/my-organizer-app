@@ -6,6 +6,7 @@ import Column from "../components/Columns/Column";
 import TaskMenu from "../components/Menu/TaskMenu";
 import { GET_MY_TASKS } from "../utils/queries";
 import Loader from "../components/Loader/Loader";
+import TaskCard from "../components/Card/TaskCard";
 
 function Tasks() {
   if (!Auth.loggedIn()) document.location.replace("/");
@@ -17,12 +18,13 @@ function Tasks() {
   return (
       <Column columns={true}>
         <Column attr={"is-3 has-background-grey-light"}>
-          <TaskMenu list={data.getMyTasks.tasks} action={setActiveTask} />
+          <TaskMenu list={data.getMyTasks.activeTasks} action={setActiveTask} />
         </Column>
         <Column>
         {activeTask.new && <TaskForm />}
         
-        {!activeTask.new && console.log(activeTask.data)}
+        {!activeTask.new && <TaskCard taskInput={activeTask} />}
+        {/*  */}
         </Column>
       </Column>
   );

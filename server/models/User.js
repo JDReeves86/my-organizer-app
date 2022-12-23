@@ -46,12 +46,18 @@ const userSchema = new Schema(
         return formatDate(date);
       },
     },
-    tasks: [
+    activeTasks: [
       {
         type: Schema.Types.ObjectId,
         ref: "Task",
       },
     ],
+    completedTasks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Task",
+      },
+    ]
   },
   {
     toJSON: {

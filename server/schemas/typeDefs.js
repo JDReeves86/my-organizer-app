@@ -6,12 +6,14 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    tasks: [Task]
+    activeTasks: [Task]
   }
   type Task {
     _id: ID
     taskText: String
     dueDate: String
+    createdAt: String
+    active: Boolean
   }
 
   type Auth {
@@ -22,6 +24,7 @@ const typeDefs = gql`
   input taskData {
     taskText: String
     dueDate: String
+    active: Boolean
   }
 
   type Query {

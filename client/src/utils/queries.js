@@ -3,10 +3,11 @@ import { gql } from "@apollo/client";
 export const GET_MY_TASKS = gql`
   query getMyTasks {
     getMyTasks {
-      tasks {
+      activeTasks {
         _id
         taskText
         dueDate
+        active
       }
     }
   }
@@ -18,6 +19,8 @@ export const GET_SINGLE_TASK = gql`
       _id
       taskText
       dueDate
+      createdAt
+      active
     }
   }
 `;
