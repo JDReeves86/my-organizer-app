@@ -10,6 +10,10 @@ const resolvers = {
     getMyTasks: async(parent, args, context) => {
       const activeUser = await User.findById(context.user._id).populate("tasks")
       return activeUser
+    },
+    getTask: async(parent, { _id }, context) => {
+      const activeTask = await Task.findById(_id)
+      return activeTask
     }
   },
   Mutation: {

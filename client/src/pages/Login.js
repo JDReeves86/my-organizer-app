@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLandingContext } from "../utils/context/LandingContext"
 import LoginForm from "../components/Forms/LoginForm";
 import SignupForm from "../components/Forms/SignupForm";

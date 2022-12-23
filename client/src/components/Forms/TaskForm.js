@@ -93,8 +93,7 @@ function TaskForm() {
     return <Loader />;
   }
 
-  const handleSubmit = async (ev) => {
-    ev.preventDefault();
+  const handleSubmit = async () => {
     try {
       const dueDate = new Date(
         `${dateDue.month} ${dateDue.day} ${dateDue.year}`
