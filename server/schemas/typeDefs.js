@@ -11,7 +11,7 @@ const typeDefs = gql`
   type Task {
     _id: ID
     taskText: String
-    dueDate: [dueDate]
+    dueDate: String
   }
 
   type Auth {
@@ -19,25 +19,14 @@ const typeDefs = gql`
     user: User
   }
 
-  type dueDate {
-    month: String
-    day: Int
-    year: Int
-  }
-
-  input dateInput {
-    month: String
-    day: Int
-    year: Int
-  }
-
   input taskData {
     taskText: String
-    dueDate: dateInput
+    dueDate: String
   }
 
   type Query {
     getMe: User
+    getMyTasks: User
   }
 
   type Mutation {

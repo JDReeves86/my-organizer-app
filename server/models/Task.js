@@ -9,7 +9,9 @@ const taskSchema = new Schema(
     },
     dueDate: {
       type: Date,
-      
+      get: (date) => {
+        return formatDate(date);
+      }
     },
     createdAt: {
       type: Date,

@@ -7,6 +7,10 @@ const resolvers = {
     getMe: async (parent, args, context) => {
       console.log(context.user);
     },
+    getMyTasks: async(parent, args, context) => {
+      const activeUser = await User.findById(context.user._id).populate("tasks")
+      return activeUser
+    }
   },
   Mutation: {
     login: async (parent, { email, password }, context) => {
@@ -49,12 +53,10 @@ const resolvers = {
       }
     },
     saveTask: async (parent, { input }, context) => {
-      const formattedDate = new Date(
-        `${input.dueDate.month} ${input.dueDate.day} ${input.dueDate.year}`
-      );
+      
       const newTask = await Task.create({
         taskText: input.taskText,
-        dueDate: formattedDate,
+        dueDate: input.dueDate
       });
       await User.findByIdAndUpdate(context.user._id, {
         $addToSet: {

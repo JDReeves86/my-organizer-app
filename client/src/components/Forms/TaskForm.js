@@ -11,7 +11,7 @@ import { SAVE_TASK } from "../../utils/mutations";
 
 function TaskForm() {
   const [taskText, setTaskTitle] = useState("");
-  const [dueDate, setDueDate] = useState({
+  const [dateDue, setDueDate] = useState({
     month: "January",
     day: 1,
     year: new Date().getFullYear(),
@@ -33,7 +33,7 @@ function TaskForm() {
   ];
   const dayOptions = [];
   const yearOptions = [];
- 
+
   for (let i = 1; i <= daysInMonth; i++) {
     dayOptions.push(i);
   }
@@ -96,9 +96,11 @@ function TaskForm() {
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     try {
-      console.log({ taskText, dueDate })
+      const dueDate = new Date(
+        `${dateDue.month} ${dateDue.day} ${dateDue.year}`
+      );
       const { data } = await saveThisTask({
-        variables: {input: { taskText, dueDate }},
+        variables: { input: { taskText, dueDate } },
       });
 
       setTaskTitle("");

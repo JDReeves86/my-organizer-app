@@ -27,11 +27,7 @@ export const SAVE_TASK = gql`
   mutation saveTask($input: taskData!) {
     saveTask(input: $input) {
       taskText
-      dueDate {
-        month
-        day
-        year
-      }
+      dueDate
     }
   }
 `
