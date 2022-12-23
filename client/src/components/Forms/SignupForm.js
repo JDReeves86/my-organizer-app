@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useLandingContext } from "../../utils/context/LandingContext";
 import { CHANGE_LOGIN_CARD } from "../../utils/actions";
-import { CREATE_USER } from "../../utils/mutations";
+import { CREATE_USER, LOGIN } from "../../utils/mutations";
 import Control from "./Components/Control";
 import Button from "../Button/Button";
 import CardContainer from "../Card/Components/CardContainer";
@@ -11,6 +11,7 @@ import CardContent from "../Card/Components/CardContent";
 import FormInput from "./Components/FormInput";
 import ErrorModal from "../Modals/ErrorModal";
 import { parseError } from "../../utils/helpers";
+import Auth from "../../utils/auth";
 
 function SignupForm() {
   let [landingState, dispatch] = useLandingContext();
@@ -19,7 +20,8 @@ function SignupForm() {
   let [password, setPassword] = useState("");
   let [password2, setPassword2] = useState("");
   let [username, setUsername] = useState("");
-  const [createUser, { error }] = useMutation(CREATE_USER);
+  const [createUser] = useMutation(CREATE_USER);
+  const [loginMyUser, { error }] = useMutation(LOGIN);
   if (error) {
     const errorMessage = parseError(error.message)
     return (<ErrorModal message={errorMessage} activate={true}/>)
@@ -32,10 +34,19 @@ function SignupForm() {
     }
 
     try {
-      const { data } = await createUser({
+      const newUser = await createUser({
         variables: { email, password, username },
       });
-      console.log(data);
+      const { data } = await loginMyUser({
+        variables: { email, password }
+      })
+      Auth.login(data.login.token)
+      const savedUser = {
+        username: data.login.user.username,
+        id: data.login.user._id
+      }
+      localStorage.setItem("user", JSON.stringify(savedUser))
+      window.location.replace("/home")
     } catch (error) {
       const errorMessage = parseError(error.message)
       return <ErrorModal message={errorMessage} activate={true}/>

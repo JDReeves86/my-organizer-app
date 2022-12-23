@@ -68,6 +68,15 @@ const resolvers = {
         },
       });
     },
+    completeTask: async (parent, { _id }, context) => {
+      const updatedTask = await Task.findByIdAndUpdate(_id, {
+        active: false
+      })
+      const updatedUser = await User.findByIdAndUpdate(context.user._id, {
+        $pull: { activeTasks: updatedTask._id },
+        $addToSet: { completedTasks: updatedTask }
+      })
+    }
   },
 };
 

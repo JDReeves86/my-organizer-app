@@ -37,6 +37,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     createNewUser(email: String!, password: String!, username: String!): User
     saveTask(input: taskData): Task
+    completeTask(_id: ID): Task
   }
 `;
 

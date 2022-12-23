@@ -32,3 +32,11 @@ export const SAVE_TASK = gql`
     }
   }
 `
+
+export const COMPLETE_TASK = gql`
+  mutation completeTask($id: ID) {
+    completeTask(_id: $id) {
+      active
+    }
+  }
+`

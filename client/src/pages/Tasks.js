@@ -23,7 +23,7 @@ function Tasks() {
         <Column>
         {activeTask.new && <TaskForm />}
         
-        {!activeTask.new && <TaskCard taskInput={activeTask} />}
+        {!activeTask.new && <TaskCard taskInput={activeTask} action={setActiveTask}/>}
         {/*  */}
         </Column>
       </Column>
