@@ -1,11 +1,17 @@
 import React from "react";
 import Column from "../Columns/Column";
+import ErrorModal from "../Modals/ErrorModal"
 import { COMPLETE_TASK } from "../../utils/mutations";
+import { GET_MY_TASKS } from "../../utils/queries";
 import { useMutation } from "@apollo/client";
 
 function TaskCard({ taskInput, action }) {
-  const [completeThisTask, { error, data }] = useMutation(COMPLETE_TASK)
-  console.log(taskInput)
+  const [completeThisTask, { error, data }] = useMutation(COMPLETE_TASK, {
+    refetchQueries: [{ query: GET_MY_TASKS }]
+  })
+  
+  if (error) return <ErrorModal message={error.message} activate={true}/>
+
   const {
     taskData: {
       data: {
@@ -42,7 +48,7 @@ function TaskCard({ taskInput, action }) {
               className="card-footer-item has-text-link has-background-light"
               onClick={() => {
                 console.log(
-                  "set up card to display current task to edit. Maybe wet action state to something completely different? add another if statement in Tasks could work I suppose..."
+                  "set up card to display current task to edit. Maybe set action state to something completely different? add another if statement in Tasks could work I suppose..."
                 );
               }}
             >
@@ -51,7 +57,7 @@ function TaskCard({ taskInput, action }) {
             <a
               className="card-footer-item has-text-danger has-background-light"
               onClick={() => {
-                action({ new: true });
+                action({ state: "new" });
               }}
             >
               Cancel

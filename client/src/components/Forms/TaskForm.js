@@ -8,6 +8,7 @@ import Button from "../Button/Button";
 import ErrorModal from "../Modals/ErrorModal";
 import Loader from "../Loader/Loader";
 import { SAVE_TASK } from "../../utils/mutations";
+import { GET_MY_TASKS } from "../../utils/queries";
 
 function TaskForm() {
   const [taskText, setTaskTitle] = useState("");
@@ -84,7 +85,9 @@ function TaskForm() {
     }
   };
 
-  const [saveThisTask, { error, loading }] = useMutation(SAVE_TASK);
+  const [saveThisTask, { error, loading }] = useMutation(SAVE_TASK, {
+    refetchQueries: [{ query: GET_MY_TASKS }]
+  });
   if (error) {
     return <ErrorModal message={error.message} activate={true} />;
   }

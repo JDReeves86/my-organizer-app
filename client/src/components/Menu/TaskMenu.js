@@ -19,7 +19,7 @@ function TaskMenu({ list, action }) {
     });
 
    let activeTask = {
-    new: loading,
+    state: "view",
     taskData
    }
 
