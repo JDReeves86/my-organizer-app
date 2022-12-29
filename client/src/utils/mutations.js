@@ -40,3 +40,13 @@ export const COMPLETE_TASK = gql`
     }
   }
 `
+
+export const EDIT_TASK = gql`
+  mutation editTask($input: taskData!) {
+    editTask(input: $input) {
+      taskText
+      dueDate
+      active
+    }
+  }
+`

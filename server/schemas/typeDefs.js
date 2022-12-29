@@ -25,6 +25,7 @@ const typeDefs = gql`
     taskText: String
     dueDate: String
     active: Boolean
+    _id: ID
   }
 
   type Query {
@@ -38,6 +39,7 @@ const typeDefs = gql`
     createNewUser(email: String!, password: String!, username: String!): User
     saveTask(input: taskData): Task
     completeTask(_id: ID): Task
+    editTask(input: taskData): Task
   }
 `;
 

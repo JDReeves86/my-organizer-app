@@ -28,7 +28,7 @@ function TaskMenu({ list, action }) {
 
   return (
     <aside className="menu pl-2 pt-4">
-      <p className="menu-label has-text-white">Your tasks</p>
+      <p className="menu-label has-text-white px-4">Active Tasks</p>
       <ul className="menu-list">
         <li>
           {list.map((el, i) => {

@@ -7,14 +7,16 @@ const resolvers = {
     getMe: async (parent, args, context) => {
       console.log(context.user);
     },
-    getMyTasks: async(parent, args, context) => {
-      const activeUser = await User.findById(context.user._id).populate("activeTasks")
-      return activeUser
+    getMyTasks: async (parent, args, context) => {
+      const activeUser = await User.findById(context.user._id).populate(
+        "activeTasks"
+      );
+      return activeUser;
     },
-    getTask: async(parent, { _id }, context) => {
-      const activeTask = await Task.findById(_id)
-      return activeTask
-    }
+    getTask: async (parent, { _id }, context) => {
+      const activeTask = await Task.findById(_id);
+      return activeTask;
+    },
   },
   Mutation: {
     login: async (parent, { email, password }, context) => {
@@ -57,26 +59,44 @@ const resolvers = {
       }
     },
     saveTask: async (parent, { input }, context) => {
-      
-      const newTask = await Task.create({
-        taskText: input.taskText,
-        dueDate: input.dueDate
-      });
-      await User.findByIdAndUpdate(context.user._id, {
-        $addToSet: {
-          activeTasks: newTask,
-        },
-      });
+      try {
+        const newTask = await Task.create({
+          taskText: input.taskText,
+          dueDate: input.dueDate,
+        });
+        await User.findByIdAndUpdate(context.user._id, {
+          $addToSet: {
+            activeTasks: newTask,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
     completeTask: async (parent, { _id }, context) => {
-      const updatedTask = await Task.findByIdAndUpdate(_id, {
-        active: false
-      })
-      const updatedUser = await User.findByIdAndUpdate(context.user._id, {
-        $pull: { activeTasks: updatedTask._id },
-        $addToSet: { completedTasks: updatedTask }
-      })
-    }
+      try {
+        const updatedTask = await Task.findByIdAndUpdate(_id, {
+          active: false,
+        });
+        const updatedUser = await User.findByIdAndUpdate(context.user._id, {
+          $pull: { activeTasks: updatedTask._id },
+          $addToSet: { completedTasks: updatedTask },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    editTask: async (parent, { input }, context) => {
+      try {
+        console.log(input);
+        const updatedTask = await Task.findByIdAndUpdate(input._id, {
+          taskText: input.taskText,
+          dueDate: input.dueDate,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-function FormInput({ label, name, type, placeholder, required, action }) {
+function FormInput({ label, name, type, placeholder, required, action, value }) {
   return required ? (
     <div>
       <label className="label">{label}</label>
@@ -10,6 +10,7 @@ function FormInput({ label, name, type, placeholder, required, action }) {
           name={name}
           type={type}
           placeholder={placeholder}
+          value={value}
           required
           onChange={action}
         />
@@ -24,6 +25,7 @@ function FormInput({ label, name, type, placeholder, required, action }) {
           name={name}
           type={type}
           placeholder={placeholder}
+          value={value}
           onChange={action}
         />
       </div>

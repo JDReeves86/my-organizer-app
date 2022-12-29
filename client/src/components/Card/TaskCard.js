@@ -1,16 +1,18 @@
 import React from "react";
 import Column from "../Columns/Column";
-import ErrorModal from "../Modals/ErrorModal"
+import ErrorModal from "../Modals/ErrorModal";
 import { COMPLETE_TASK } from "../../utils/mutations";
 import { GET_MY_TASKS } from "../../utils/queries";
 import { useMutation } from "@apollo/client";
 
 function TaskCard({ taskInput, action }) {
   const [completeThisTask, { error, data }] = useMutation(COMPLETE_TASK, {
-    refetchQueries: [{ query: GET_MY_TASKS }]
-  })
-  
-  if (error) return <ErrorModal message={error.message} activate={true}/>
+    refetchQueries: [{ query: GET_MY_TASKS }],
+  });
+
+  if (error) return <ErrorModal message={error.message} activate={true} />;
+
+  const { taskData } = taskInput
 
   const {
     taskData: {
@@ -36,10 +38,11 @@ function TaskCard({ taskInput, action }) {
           <footer className="card-footer">
             <a
               className="card-footer-item has-text-success has-background-light"
-              onClick={ async () => {
+              onClick={async () => {
                 const completedTask = await completeThisTask({
-                  variables: { id: _id }
-                })
+                  variables: { id: _id },
+                });
+                action({state: "new"})
               }}
             >
               Complete
@@ -47,9 +50,7 @@ function TaskCard({ taskInput, action }) {
             <a
               className="card-footer-item has-text-link has-background-light"
               onClick={() => {
-                console.log(
-                  "set up card to display current task to edit. Maybe set action state to something completely different? add another if statement in Tasks could work I suppose..."
-                );
+                action({ state: "edit", taskData });
               }}
             >
               Edit
