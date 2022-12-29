@@ -24,8 +24,8 @@ function TaskCard({ taskInput, action }) {
 
   return (
     <Column columns={true}>
-      <Column attr={"is-half is-offset-one-quarter mt-6"}>
-        <div className="card-container mt-6 p-3">
+      <Column attr={"is-10 is-offset-1 mt-6"}>
+        <div className="card-container mt-6">
           <div className="card-header has-background-info">
             <p className="card-header-title has-text-light">{taskText}</p>
           </div>

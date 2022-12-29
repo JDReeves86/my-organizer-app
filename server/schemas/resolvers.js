@@ -8,9 +8,10 @@ const resolvers = {
       console.log(context.user);
     },
     getMyTasks: async (parent, args, context) => {
-      const activeUser = await User.findById(context.user._id).populate(
-        "activeTasks"
-      );
+      const activeUser = await User.findById(context.user._id)
+        .populate("activeTasks")
+        .populate("completedTasks");
+        console.log(activeUser)
       return activeUser;
     },
     getTask: async (parent, { _id }, context) => {

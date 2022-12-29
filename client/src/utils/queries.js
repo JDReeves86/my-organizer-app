@@ -9,6 +9,12 @@ export const GET_MY_TASKS = gql`
         dueDate
         active
       }
+      completedTasks {
+        _id
+        taskText
+        dueDate
+        active
+      }
     }
   }
 `;

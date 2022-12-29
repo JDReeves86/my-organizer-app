@@ -7,6 +7,7 @@ const typeDefs = gql`
     email: String
     password: String
     activeTasks: [Task]
+    completedTasks: [Task]
   }
   type Task {
     _id: ID

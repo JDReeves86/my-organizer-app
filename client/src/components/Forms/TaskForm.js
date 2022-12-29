@@ -129,7 +129,7 @@ function TaskForm() {
   return (
     <>
       <Column columns={true}>
-        <Column attr={"is-half is-offset-one-quarter"}>
+        <Column attr={"is-10 is-offset-1 mt-6"}>
           <div className="section">
             <h1 className="title is-size-2">Tasks</h1>
             <h1 className="subtitle iss-size-5">
