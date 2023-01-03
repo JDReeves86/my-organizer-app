@@ -14,6 +14,11 @@ export default function Navbar({ attr, id }) {
   // To use Navbar to it's fullest extent you will need to provide some fine tuning to your needs/wants for the project. i.e adding navitems, dropdown menus, etc.
   const exampleData = [
     {
+      title: "Home",
+      href: "/home",
+      linked: true
+    },
+    {
       title: "Task Manager",
       href: "/tasks",
       linked: true

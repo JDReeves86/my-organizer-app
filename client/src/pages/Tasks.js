@@ -9,6 +9,8 @@ import Loader from "../components/Loader/Loader";
 import TaskCard from "../components/Card/TaskCard";
 import EditTaskForm from "../components/Forms/EditTaskForm";
 import CompletedTasks from "../components/Menu/CompletedTaskList";
+import Hero from "../components/Hero";
+import Navbar from "../components/Navbar/Navbar";
 
 function Tasks() {
   if (!Auth.loggedIn()) document.location.replace("/");
@@ -18,21 +20,29 @@ function Tasks() {
   if (loading) return <Loader />;
 
   return (
-    <Column columns={true}>
-      <Column attr={"is-3 has-background-grey-light"}>
-        <TaskMenu list={data.getMyTasks.activeTasks} action={setActiveTask} />
+    <>
+      <Hero attr={"has-background-success-dark has-text-white"}>
+        <h1 className="is-size-3 has-text-centered">
+          Not your Fathers Planner
+        </h1>
+      </Hero>
+      <Navbar attr={"has-background-grey-lighter"} />
+      <Column columns={true}>
+        <Column attr={"is-3 has-background-grey-light"}>
+          <TaskMenu list={data.getMyTasks.activeTasks} action={setActiveTask} />
+        </Column>
+        <Column attr={"is-6"}>
+          {activeTask.state === "new" && <TaskForm />}
+          {activeTask.state === "edit" && <EditTaskForm input={activeTask} />}
+          {activeTask.state === "view" && (
+            <TaskCard taskInput={activeTask} action={setActiveTask} />
+          )}
+        </Column>
+        <Column attr={"is-3 has-background-grey-light"}>
+          <CompletedTasks input={data.getMyTasks.completedTasks} />
+        </Column>
       </Column>
-      <Column attr={'is-6'}>
-        {activeTask.state === "new" && <TaskForm />}
-        {activeTask.state === "edit" && <EditTaskForm input={activeTask}/>}
-        {activeTask.state === "view" && (
-          <TaskCard taskInput={activeTask} action={setActiveTask} />
-        )}
-      </Column>
-      <Column attr={"is-3 has-background-grey-light"}>
-          <CompletedTasks input={data.getMyTasks.completedTasks}/>
-      </Column>
-    </Column>
+    </>
   );
 }
 

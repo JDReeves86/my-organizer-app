@@ -8,11 +8,10 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { LandingProvider } from "./utils/context/LandingContext";
-import Hero from "./components/Hero";
-import Navbar from "./components/Navbar/Navbar";
 import Splash from "./pages/Splash";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Notes from "./pages/Notes"
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Tasks from "./pages/Tasks";
@@ -40,18 +39,13 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Hero attr={"has-background-danger-dark has-text-white"}>
-          <h1 className="is-size-3 has-text-centered">
-            Not your Fathers Planner
-          </h1>
-        </Hero>
-        <Navbar attr={"has-background-grey-lighter"} />
         <LandingProvider>
           <Routes>
             <Route path="/" element={<Splash />} />
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Dashboard />} />
             <Route path="/tasks" element={<Tasks />} />
+            <Route path="/notes" element={<Notes />} />
           </Routes>
         </LandingProvider>
       </Router>
