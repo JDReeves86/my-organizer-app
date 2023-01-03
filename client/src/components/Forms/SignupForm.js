@@ -23,8 +23,8 @@ function SignupForm() {
   const [createUser] = useMutation(CREATE_USER);
   const [loginMyUser, { error }] = useMutation(LOGIN);
   if (error) {
-    const errorMessage = parseError(error.message)
-    return (<ErrorModal message={errorMessage} activate={true}/>)
+    const errorMessage = parseError(error.message);
+    return <ErrorModal message={errorMessage} activate={true} />;
   }
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,18 +38,18 @@ function SignupForm() {
         variables: { email, password, username },
       });
       const { data } = await loginMyUser({
-        variables: { email, password }
-      })
-      Auth.login(data.login.token)
+        variables: { email, password },
+      });
+      Auth.login(data.login.token);
       const savedUser = {
         username: data.login.user.username,
-        id: data.login.user._id
-      }
-      localStorage.setItem("user", JSON.stringify(savedUser))
-      window.location.replace("/home")
+        id: data.login.user._id,
+      };
+      localStorage.setItem("user", JSON.stringify(savedUser));
+      window.location.replace("/home");
     } catch (error) {
-      const errorMessage = parseError(error.message)
-      return <ErrorModal message={errorMessage} activate={true}/>
+      const errorMessage = parseError(error.message);
+      return <ErrorModal message={errorMessage} activate={true} />;
     }
 
     setEmail("");
@@ -94,6 +94,8 @@ function SignupForm() {
             placeholder={"E-mail"}
             required={true}
             action={handleChange}
+            icon="fa-envelope"
+            iconside="left"
           />
           <FormInput
             label={"Username"}
@@ -102,6 +104,8 @@ function SignupForm() {
             placeholder={"Username"}
             required={true}
             action={handleChange}
+            icon="fa-pencil"
+            iconside="left"
           />
           <FormInput
             label={"Password"}
@@ -110,6 +114,8 @@ function SignupForm() {
             placeholder={"Password"}
             required={true}
             action={handleChange}
+            icon="fa-lock"
+            iconside="left"
           />
           <FormInput
             label={"Re-type your password"}
@@ -118,8 +124,14 @@ function SignupForm() {
             placeholder={"Re-type your password"}
             required={true}
             action={handleChange}
+            icon="fa-lock"
+            iconside="left"
           />
           <div className="has-text-centered">
+            <p className="has-text-info-dark is-size-7 has-text-weight-semibold">
+              Password must contain 1 uppercase, 1 number and a special
+              character
+            </p>
             <p
               className={`has-text-danger is-size-6 has-text-weight-semibold ${hidden}`}
             >

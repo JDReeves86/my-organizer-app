@@ -41,6 +41,7 @@ const typeDefs = gql`
     saveTask(input: taskData): Task
     completeTask(_id: ID): Task
     editTask(input: taskData): Task
+    deleteTask(_id: ID): Task
   }
 `;
 

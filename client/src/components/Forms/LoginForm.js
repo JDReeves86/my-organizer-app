@@ -85,6 +85,8 @@ function LoginForm({ props }) {
             placeholder={"E-mail"}
             required={true}
             action={handleChange}
+            icon={"fa-envelope"}
+            iconside="left"
           />
           <FormInput
             label={"Password"}
@@ -93,6 +95,8 @@ function LoginForm({ props }) {
             placeholder={"Password"}
             required={true}
             action={handleChange}
+            icon={"fa-lock"}
+            iconside="left"
           />
           <div className="has-text-centered">
             <p className={`has-text-danger is-size-7 ${hidden}`}>

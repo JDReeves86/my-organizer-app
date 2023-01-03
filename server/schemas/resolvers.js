@@ -1,6 +1,7 @@
 const { User, Task } = require("../models");
 const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require("apollo-server");
+const { findByIdAndDelete } = require("../models/User");
 
 const resolvers = {
   Query: {
@@ -11,7 +12,6 @@ const resolvers = {
       const activeUser = await User.findById(context.user._id)
         .populate("activeTasks")
         .populate("completedTasks");
-        console.log(activeUser)
       return activeUser;
     },
     getTask: async (parent, { _id }, context) => {
@@ -89,7 +89,6 @@ const resolvers = {
     },
     editTask: async (parent, { input }, context) => {
       try {
-        console.log(input);
         const updatedTask = await Task.findByIdAndUpdate(input._id, {
           taskText: input.taskText,
           dueDate: input.dueDate,
@@ -98,6 +97,17 @@ const resolvers = {
         console.log(error);
       }
     },
+    deleteTask: async (parent, { _id }, context) => {
+      try {
+        await User.findByIdAndUpdate(context.user._id, {
+          $pull: { completedTasks: _id}
+        })
+        await Task.findByIdAndDelete(_id)
+        return _id
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
 };
 
