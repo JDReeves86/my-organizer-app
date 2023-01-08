@@ -1,6 +1,7 @@
 import React from "react";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar/Navbar";
+import splashImg from "../images/planner690x639.jpg"
 
 function Splash() {
   return (
@@ -11,7 +12,9 @@ function Splash() {
         </h1>
       </Hero>
       <Navbar attr={"has-background-grey-lighter"} />
-      <h1>SPLASH Page</h1>
+      <figure className="image">
+        <img src={splashImg}></img>
+      </figure>
     </>
   );
 }
