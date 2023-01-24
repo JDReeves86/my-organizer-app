@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { createEditor, Transforms, Editor, Text } from "slate";
 import { Slate, Editable, withReact } from "slate-react";
+import Auth from "../utils/auth";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar/Navbar";
 import Column from "../components/Columns/Column";
@@ -15,6 +16,7 @@ const initialValue = [
 ];
 
 function Notes() {
+  if (!Auth.loggedIn()) document.location.replace("/login");
   const [editor] = useState(() => withReact(createEditor()));
   const renderElement = useCallback((props) => {
     switch (props.element.type) {

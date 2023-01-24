@@ -13,7 +13,7 @@ import Hero from "../components/Hero";
 import Navbar from "../components/Navbar/Navbar";
 
 function Tasks() {
-  if (!Auth.loggedIn()) document.location.replace("/");
+  if (!Auth.loggedIn()) document.location.replace("/login");
   const { data, loading } = useQuery(GET_MY_TASKS);
   const [activeTask, setActiveTask] = useState({ state: "new" });
 
