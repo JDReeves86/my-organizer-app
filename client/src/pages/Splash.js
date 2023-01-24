@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar/Navbar";
-import splashImg from "../images/planner690x639.jpg"
+import splashImg from "../images/paper.jpg"
 
 function Splash() {
   return (
@@ -12,9 +12,14 @@ function Splash() {
         </h1>
       </Hero>
       <Navbar attr={"has-background-grey-lighter"} />
-      <figure className="image">
-        <img src={splashImg}></img>
-      </figure>
+      <div className="box" id="splashPage">
+        <div className="columns is-centered is-flex is-vcentered" id="splashCol">
+          <div className="column is-half has-text-centered has-text-grey-dark">
+            <p id="splashText">Welcome to your planner</p>
+          </div>
+        </div>
+      </div>
+      
     </>
   );
 }
