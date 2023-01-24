@@ -4,6 +4,8 @@ A React app designed to help keep you organized and up to date with all the thin
 
 Future plans include a simple calendar app that will sync with your to-dos. 
 
+### Does require a local instance of MongoDB and will require cloning of repository to function.
+
 ## I'm coming for you Microsoft!
 
    Copyright [2022] [Jacob Reeves]
