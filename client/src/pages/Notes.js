@@ -17,6 +17,7 @@ const initialValue = [
 
 function Notes() {
   if (!Auth.loggedIn()) document.location.replace("/login");
+  const [initialValue, setInitialValue] = useState({})
   const [editor] = useState(() => withReact(createEditor()));
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
