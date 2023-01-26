@@ -17,6 +17,30 @@ const typeDefs = gql`
     active: Boolean
   }
 
+  type Note {
+    _id: ID
+    noteValue: [NoteValue]
+    createdAt: String
+  }
+
+  type NoteValue {
+    type: String
+    children: [NoteLines]
+  }
+
+  input NoteContent {
+    type: String
+    children: [NoteChildren]
+  }
+
+  type NoteLines {
+    text: String
+  }
+
+  input NoteChildren {
+    text: String
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -42,6 +66,7 @@ const typeDefs = gql`
     completeTask(_id: ID): Task
     editTask(input: taskData): Task
     deleteTask(_id: ID): Task
+    saveNote(input: NoteContent): Note
   }
 `;
 

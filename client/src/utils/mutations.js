@@ -58,3 +58,16 @@ export const DELETE_TASK = gql`
     }
   }
 `
+
+export const SAVE_NOTE = gql`
+  mutation saveNote($input: NoteContent) {
+    saveNote(input: $input) {
+      noteValue {
+        type
+        children {
+          text
+        }
+      }
+    }
+  }
+`

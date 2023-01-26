@@ -107,6 +107,9 @@ const resolvers = {
       } catch (error) {
         console.log(error)
       }
+    },
+    saveNote: async (parent, args) => {
+      console.log(args)
     }
   },
 };
