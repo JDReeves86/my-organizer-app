@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { createEditor, Transforms, Editor, Text } from "slate";
 import { Slate, Editable, withReact } from "slate-react";
+import CustomEditor from "../utils/slateHelpers";
 import Auth from "../utils/auth";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar/Navbar";
@@ -8,16 +9,21 @@ import Column from "../components/Columns/Column";
 import DefaultComp from "../components/SlateEditor/DefaultComp";
 import Leaf from "../components/SlateEditor/Leaf";
 
-const initialValue = [
-  {
-    type: "paragraph",
-    children: [{ text: "A line of text in a paragraph." }],
-  },
-];
+// const initialValue = [
+//   {
+//     type: "paragraph",
+//     children: [{ text: "A line of text in a paragraph." }],
+//   },
+// ];
 
 function Notes() {
   if (!Auth.loggedIn()) document.location.replace("/login");
-  const [initialValue, setInitialValue] = useState({})
+  const [initialValue, setInitialValue] = useState([
+    {
+      type: "paragraph",
+      children: [{ text: "A line of text in a paragraph." }],
+    },
+  ]);
   const [editor] = useState(() => withReact(createEditor()));
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
@@ -43,7 +49,20 @@ function Notes() {
         <Column attr={"is-9"}>
           <div className="level">
             <div className="level-item level-left">
-              <Slate editor={editor} value={initialValue}>
+              <Slate
+                editor={editor}
+                value={initialValue}
+                onChange={value => {
+                  const isAstChange = editor.operations.some(
+                    (op) => "set_selection" !== op.type
+                  );
+                  if (isAstChange) {
+                    setInitialValue(value);
+                    const content = JSON.stringify(value);
+                    localStorage.setItem("content", content);
+                  }
+                }}
+              >
                 <Editable
                   renderElement={renderElement}
                   renderLeaf={renderLeaf}
@@ -54,11 +73,7 @@ function Notes() {
                     switch (event.key) {
                       case "b":
                         event.preventDefault();
-                        Transforms.setNodes(
-                          editor,
-                          { bold: true },
-                          { match: (n) => Text.isText(n), split: true }
-                        );
+                        CustomEditor.toggleBoldMark(editor);
                         break;
                     }
                   }}

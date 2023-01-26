@@ -16,3 +16,6 @@ const CustomEditor = {
     );
   },
 };
+
+
+export default CustomEditor
