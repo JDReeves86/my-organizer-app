@@ -19,25 +19,29 @@ const typeDefs = gql`
 
   type Note {
     _id: ID
-    noteValue: [NoteValue]
+    noteValue: [noteValue]
     createdAt: String
   }
 
-  type NoteValue {
+  type noteValue {
     type: String
-    children: [NoteLines]
+    children: [noteLines]
   }
 
-  input NoteContent {
-    type: String
-    children: [NoteChildren]
-  }
-
-  type NoteLines {
+  type noteLines {
     text: String
   }
 
-  input NoteChildren {
+  input NoteInput {
+    noteValue: [noteValueInput]
+  }
+
+  input noteValueInput {
+    type: String
+    children: [noteLinesInput]
+  }
+
+  input noteLinesInput {
     text: String
   }
 
@@ -66,7 +70,7 @@ const typeDefs = gql`
     completeTask(_id: ID): Task
     editTask(input: taskData): Task
     deleteTask(_id: ID): Task
-    saveNote(input: NoteContent): Note
+    saveNote(input: NoteInput): Note
   }
 `;
 

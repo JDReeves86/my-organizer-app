@@ -41,8 +41,10 @@ function Notes() {
   const handleSubmit = async () => {
     try {
       console.log(initialValue)
+      const testVar = { NoteContent : initialValue}
+      console.log(testVar)
       const { data } = await saveNote({
-        variables: { input: { NoteContent: initialValue }}
+        variables: { input: { noteValue: initialValue }}
       })
     }
     catch(err) {

@@ -108,8 +108,11 @@ const resolvers = {
         console.log(error)
       }
     },
-    saveNote: async (parent, args) => {
-      console.log(args)
+    saveNote: async (parent, { input: { noteValue } }) => {
+      console.log(noteValue)
+      noteValue.forEach(element => {
+        console.log(element.type, element.children[0].text)
+      });
     }
   },
 };

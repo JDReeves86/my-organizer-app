@@ -60,7 +60,7 @@ export const DELETE_TASK = gql`
 `
 
 export const SAVE_NOTE = gql`
-  mutation saveNote($input: NoteContent) {
+  mutation saveNote($input: NoteInput) {
     saveNote(input: $input) {
       noteValue {
         type
