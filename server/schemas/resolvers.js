@@ -1,4 +1,4 @@
-const { User, Task } = require("../models");
+const { User, Task, Note } = require("../models");
 const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require("apollo-server");
 const { findByIdAndDelete } = require("../models/User");
@@ -18,6 +18,15 @@ const resolvers = {
       const activeTask = await Task.findById(_id);
       return activeTask;
     },
+    getMyNotes: async (parent, args, context) => {
+      const activeUser = await User.findById(context.user._id)
+        .populate("notes")
+      return activeUser;
+    },
+    getNote: async (parent, { _id }, context) => {
+      const activeNote = await Note.findById(_id)
+      return activeNote
+    }
   },
   Mutation: {
     login: async (parent, { email, password }, context) => {
@@ -108,11 +117,21 @@ const resolvers = {
         console.log(error)
       }
     },
-    saveNote: async (parent, { input: { noteValue } }) => {
-      console.log(noteValue)
-      noteValue.forEach(element => {
-        console.log(element.type, element.children[0].text)
-      });
+    saveNote: async (parent, { input: { noteValue } }, context) => {
+      try {
+        const newNote = await Note.create({
+          noteValue
+        })
+        await User.findByIdAndUpdate(context.user._id, {
+          $addToSet: {
+            notes: newNote
+          },
+        });
+      }
+      catch (error) {
+        console.log(error)
+      }
+      console.log(context.user._id)
     }
   },
 };

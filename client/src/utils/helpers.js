@@ -25,8 +25,13 @@ const calculateStartYear = () => {
   return new Date().getFullYear();
 };
 
+const trimNote = (string) => {
+  return (string.split('').splice(0, 14).join('') + '...')
+}
+
 module.exports = {
   parseError,
   capitalizeFirstLetter,
   calculateStartYear,
+  trimNote
 };

@@ -6,6 +6,7 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
+    notes: [Note]
     activeTasks: [Task]
     completedTasks: [Task]
   }
@@ -61,6 +62,8 @@ const typeDefs = gql`
     getMe: User
     getMyTasks: User
     getTask(_id: ID): Task
+    getMyNotes: User
+    getNote(_id: ID): Note
   }
 
   type Mutation {

@@ -46,6 +46,12 @@ const userSchema = new Schema(
         return formatDate(date);
       },
     },
+    notes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Note"
+      }
+    ],
     activeTasks: [
       {
         type: Schema.Types.ObjectId,

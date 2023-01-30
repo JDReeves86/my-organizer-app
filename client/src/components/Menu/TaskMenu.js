@@ -18,10 +18,10 @@ function TaskMenu({ list, action }) {
       variables: { taskId: storedTaskIDs[clicked] },
     });
 
-   let activeTask = {
-    state: "view",
-    taskData
-   }
+    let activeTask = {
+      state: "view",
+      taskData,
+    };
 
     action(activeTask);
   };

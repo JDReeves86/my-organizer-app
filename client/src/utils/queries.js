@@ -30,3 +30,35 @@ export const GET_SINGLE_TASK = gql`
     }
   }
 `;
+
+export const GET_MY_NOTES = gql`
+  query getMyNotes {
+    getMyNotes {
+      notes {
+        _id
+        createdAt
+        noteValue {
+          type
+          children {
+            text
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_SINGLE_NOTE = gql`
+  query getNote($noteId: ID!) {
+    getNote(_id: $noteId) {
+      _id
+      createdAt
+      noteValue {
+        type
+        children {
+          text
+        }
+      }
+    }
+  }
+`;
