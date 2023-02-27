@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { createEditor, Transforms, Editor, Text } from "slate";
 import { Slate, Editable, withReact } from "slate-react";
 import CustomEditor from "../../utils/slateHelpers";
@@ -12,12 +12,11 @@ import { SAVE_NOTE } from "../../utils/mutations";
 
 function NoteForm({ note }) {
   console.log(note)
-    const [initialValue, setInitialValue] = useState([
-        {
-          type: "paragraph",
-          children: [{ text: "A line of text in a paragraph." }],
-        },
-      ]);
+    const [initialValue, setInitialValue] = useState(note);
+      console.log(initialValue)
+      useEffect(() => {
+        setInitialValue(note)
+      }, [note])
     
       const [editor] = useState(() => withReact(createEditor()));
       const renderElement = useCallback((props) => {

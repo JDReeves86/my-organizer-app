@@ -29,7 +29,7 @@ function Notes() {
 
   let { data, loading } = useQuery(GET_MY_NOTES);
   if (loading) return <Loader />
-  console.log(activeNote)
+
   return (
     <>
       <Hero attr={"has-background-info-light has-text-info"}>
