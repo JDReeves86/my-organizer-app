@@ -12,6 +12,7 @@ import Splash from "./pages/Splash";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Notes from "./pages/Notes"
+import "draft-js/dist/Draft.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Tasks from "./pages/Tasks";

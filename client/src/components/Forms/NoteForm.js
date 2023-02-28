@@ -7,15 +7,14 @@ import MyEditor from "../DraftComponents/MyEditor";
 
 function NoteForm({ note }) {
   console.log(note);
-  
- 
+
   const [saveNote, { error }] = useMutation(SAVE_NOTE);
 
   if (error) return <ErrorModal message={error.message} activate={true} />;
 
   const handleSubmit = async () => {
     try {
-      console.log('saved')
+      console.log("saved");
       // const testVar = { NoteContent: initialValue };
       // const { data } = await saveNote({
       //   variables: { input: { noteValue: initialValue } },
@@ -26,9 +25,8 @@ function NoteForm({ note }) {
   };
   return (
     <div className="level">
-      <div className="level-item level-left">
-        <MyEditor />
-      </div>
+      <MyEditor />
+
       <div className="level-item level-right">
         <Button attr="is-success" action={handleSubmit}>
           Save
