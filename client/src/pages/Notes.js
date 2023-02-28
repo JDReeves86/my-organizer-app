@@ -1,19 +1,15 @@
-import React, { useState, useCallback } from "react";
-import { createEditor, Transforms, Editor, Text } from "slate";
-import { Slate, Editable, withReact } from "slate-react";
-import CustomEditor from "../utils/slateHelpers";
-import { useMutation, useQuery } from "@apollo/client";
+import React, { useState } from "react";
+
+import { useQuery } from "@apollo/client";
 import Auth from "../utils/auth";
 import Hero from "../components/Hero";
-import Button from "../components/Button/Button";
+
 import Navbar from "../components/Navbar/Navbar";
 import Column from "../components/Columns/Column";
-import DefaultComp from "../components/SlateEditor/DefaultComp";
-import Leaf from "../components/SlateEditor/Leaf";
-import ErrorModal from "../components/Modals/ErrorModal";
+
 import Loader from "../components/Loader/Loader";
 import NoteMenu from "../components/Menu/NoteMenu";
-import { SAVE_NOTE } from "../utils/mutations";
+
 import { GET_MY_NOTES } from "../utils/queries";
 import NoteForm from "../components/Forms/NoteForm";
 
