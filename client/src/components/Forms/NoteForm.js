@@ -1,16 +1,13 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import React from "react";
+import { useMutation } from "@apollo/client";
 import Button from "../Button/Button";
 import ErrorModal from "../Modals/ErrorModal";
 import { SAVE_NOTE } from "../../utils/mutations";
+import MyEditor from "../DraftComponents/MyEditor";
 
 function NoteForm({ note }) {
   console.log(note);
-  const [initialValue, setInitialValue] = useState(note);
-  console.log(initialValue);
-
-  const [editor] = useState(() => withReact(createEditor()));
- 
+  
  
   const [saveNote, { error }] = useMutation(SAVE_NOTE);
 
@@ -18,10 +15,11 @@ function NoteForm({ note }) {
 
   const handleSubmit = async () => {
     try {
-      const testVar = { NoteContent: initialValue };
-      const { data } = await saveNote({
-        variables: { input: { noteValue: initialValue } },
-      });
+      console.log('saved')
+      // const testVar = { NoteContent: initialValue };
+      // const { data } = await saveNote({
+      //   variables: { input: { noteValue: initialValue } },
+      // });
     } catch (err) {
       throw new Error(err);
     }
@@ -29,7 +27,7 @@ function NoteForm({ note }) {
   return (
     <div className="level">
       <div className="level-item level-left">
-        
+        <MyEditor />
       </div>
       <div className="level-item level-right">
         <Button attr="is-success" action={handleSubmit}>

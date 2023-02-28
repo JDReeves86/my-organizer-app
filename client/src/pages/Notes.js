@@ -1,30 +1,30 @@
 import React, { useState } from "react";
-
 import { useQuery } from "@apollo/client";
 import Auth from "../utils/auth";
 import Hero from "../components/Hero";
-
 import Navbar from "../components/Navbar/Navbar";
 import Column from "../components/Columns/Column";
-
 import Loader from "../components/Loader/Loader";
 import NoteMenu from "../components/Menu/NoteMenu";
-
 import { GET_MY_NOTES } from "../utils/queries";
 import NoteForm from "../components/Forms/NoteForm";
 
 function Notes() {
   if (!Auth.loggedIn()) document.location.replace("/login");
 
-  const [activeNote, setActiveNote] = useState([{
-    type: 'paragraph',
-    children: [{
-      text: ''
-    }]
-  }])
+  const [activeNote, setActiveNote] = useState([
+    {
+      type: "paragraph",
+      children: [
+        {
+          text: "",
+        },
+      ],
+    },
+  ]);
 
   let { data, loading } = useQuery(GET_MY_NOTES);
-  if (loading) return <Loader />
+  if (loading) return <Loader />;
 
   return (
     <>
@@ -36,10 +36,10 @@ function Notes() {
       <Navbar attr={"has-background-grey-lighter"} />
       <Column columns={true}>
         <Column attr={"is-3 has-background-grey-light"}>
-          <NoteMenu list={data} action={setActiveNote}/>
+          <NoteMenu list={data} action={setActiveNote} />
         </Column>
         <Column attr={"is-9"}>
-          <NoteForm note={activeNote}/>
+          <NoteForm note={activeNote} />
           <section className="section">
             <p className="has-background-dark has-text-white">Note previews</p>
           </section>
