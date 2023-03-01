@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import ErrorModal from "../Modals/ErrorModal";
 import { SAVE_NOTE } from "../../utils/mutations";
 import MyEditor from "../DraftComponents/MyEditor";
+import "draft-js/dist/Draft.css";
 
 function NoteForm({ note }) {
   console.log(note);
@@ -24,9 +25,10 @@ function NoteForm({ note }) {
     }
   };
   return (
-    <div className="level">
-      <MyEditor />
+// bulma level items fucking with text editor. need to figure out formatting.
 
+    <div className="level">
+        <MyEditor />
       <div className="level-item level-right">
         <Button attr="is-success" action={handleSubmit}>
           Save
