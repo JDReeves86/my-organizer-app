@@ -25,16 +25,20 @@ function NoteForm({ note }) {
     }
   };
   return (
-// bulma level items fucking with text editor. need to figure out formatting.
+    // bulma level items fucking with text editor. need to figure out formatting.
+    <>
+      <div className="columns">
+        <div className="column">
+          <MyEditor />
+        </div>
+      </div>
 
-    <div className="level">
-        <MyEditor />
       <div className="level-item level-right">
         <Button attr="is-success" action={handleSubmit}>
           Save
         </Button>
       </div>
-    </div>
+    </>
   );
 }
 
