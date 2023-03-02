@@ -29,9 +29,17 @@ const trimNote = (string) => {
   return (string.split('').splice(0, 14).join('') + '...')
 }
 
+const escapeQuotesforJSON = (obj) => {
+  console.log(obj)
+  const regex = /(["'])((?:(?=(?:\\)*)\\.|.)*?)\1/gm
+  const found = obj.replaceAll("\"","\\\"")
+  return(`"${found}"`)
+}
+
 module.exports = {
   parseError,
   capitalizeFirstLetter,
   calculateStartYear,
-  trimNote
+  trimNote,
+  escapeQuotesforJSON
 };

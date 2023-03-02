@@ -20,31 +20,8 @@ const typeDefs = gql`
 
   type Note {
     _id: ID
-    noteValue: [noteValue]
-    createdAt: String
-  }
-
-  type noteValue {
-    type: String
-    children: [noteLines]
-  }
-
-  type noteLines {
-    text: String
-  }
-
-  input NoteInput {
-    noteValue: [noteValueInput]
-  }
-
-  input noteValueInput {
-    type: String
-    children: [noteLinesInput]
-  }
-
-  input noteLinesInput {
-    text: String
-  }
+    noteValue: String
+    }
 
   type Auth {
     token: ID!
@@ -73,7 +50,7 @@ const typeDefs = gql`
     completeTask(_id: ID): Task
     editTask(input: taskData): Task
     deleteTask(_id: ID): Task
-    saveNote(input: NoteInput): Note
+    saveNote(input: String): Note
   }
 `;
 

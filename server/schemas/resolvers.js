@@ -117,16 +117,17 @@ const resolvers = {
         console.log(error)
       }
     },
-    saveNote: async (parent, { input: { noteValue } }, context) => {
+    saveNote: async (parent, { input }, context) => {
       try {
-        const newNote = await Note.create({
-          noteValue
-        })
-        await User.findByIdAndUpdate(context.user._id, {
-          $addToSet: {
-            notes: newNote
-          },
-        });
+        console.log(input)
+        // const newNote = await Note.create({
+        //   noteValue
+        // })
+        // await User.findByIdAndUpdate(context.user._id, {
+        //   $addToSet: {
+        //     notes: newNote
+        //   },
+        // });
       }
       catch (error) {
         console.log(error)
