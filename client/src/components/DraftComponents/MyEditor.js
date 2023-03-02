@@ -26,11 +26,15 @@ function MyEditor() {
     setEditorState(RichUtils.toggleInlineStyle(editorState, "ITALIC"));
   };
 
+  const onUnderlineClick = () => {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, "UNDERLINE"));
+  };
+
   return (
     <>
-      <button onClick={onBoldClick.bind(editorState)}>Bold</button>
-
-      <button onClick={onItalicClick.bind(editorState)}>italic</button>
+      <button className="myEditorBtn has-background-grey-lighter" id="boldBtn" onClick={onBoldClick.bind(editorState)}>B</button>
+      <button className="myEditorBtn has-background-grey-lighter" id="underlineBtn" onClick={onUnderlineClick.bind(editorState)}>U</button>
+      <button className="myEditorBtn has-background-grey-lighter" id="italicBtn" onClick={onItalicClick.bind(editorState)}><em>I</em></button>
       <Editor
         editorState={editorState}
         onChange={setEditorState}

@@ -14,3 +14,27 @@
     font-weight: bolder;
     font-family: Caveat, cursive
 }
+
+.myEditorBtn {
+    margin: 5px;
+    height: 1.5rem;
+    width: 1.5rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.myEditorBtn:hover {
+    cursor: pointer;
+}
+
+#boldBtn {
+    font-weight: bold;
+}
+
+#underlineBtn {
+    text-decoration: underline;
+}
+
+#italicBtn {
+    font-style: italic;
+}
