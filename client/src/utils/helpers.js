@@ -31,9 +31,14 @@ const trimNote = (string) => {
 
 const escapeQuotesforJSON = (obj) => {
   console.log(obj)
-  const regex = /(["'])((?:(?=(?:\\)*)\\.|.)*?)\1/gm
+  // const regex = /(["'])((?:(?=(?:\\)*)\\.|.)*?)\1/gm
   const found = obj.replaceAll("\"","\\\"")
   return(`"${found}"`)
+}
+
+const unescapeQuotesforJSON = (str) => {
+  const replaced = str.replaceAll("\\", "")
+  return (JSON.parse(replaced.substring(1, replaced.length-1)))
 }
 
 module.exports = {
@@ -41,5 +46,6 @@ module.exports = {
   capitalizeFirstLetter,
   calculateStartYear,
   trimNote,
-  escapeQuotesforJSON
+  escapeQuotesforJSON,
+  unescapeQuotesforJSON
 };

@@ -37,12 +37,7 @@ export const GET_MY_NOTES = gql`
       notes {
         _id
         createdAt
-        noteValue {
-          type
-          children {
-            text
-          }
-        }
+        noteValue
       }
     }
   }
@@ -53,12 +48,7 @@ export const GET_SINGLE_NOTE = gql`
     getNote(_id: $noteId) {
       _id
       createdAt
-      noteValue {
-        type
-        children {
-          text
-        }
-      }
+      noteValue
     }
   }
 `;

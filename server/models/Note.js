@@ -4,7 +4,7 @@ const { formatDate } = require("./utils/helpers");
 const noteSchema = new Schema(
   {
     noteValue: {
-      type: Array,
+      type: String,
     },
     createdAt: {
       type: Date,

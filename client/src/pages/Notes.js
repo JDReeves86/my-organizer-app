@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_MY_NOTES } from "../utils/queries";
 
+import { unescapeQuotesforJSON } from "../utils/helpers";
+
 import Auth from "../utils/auth";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar/Navbar";
@@ -13,19 +15,33 @@ import MyEditor from "../components/DraftComponents/MyEditor";
 function Notes() {
   if (!Auth.loggedIn()) document.location.replace("/login");
 
-  const [activeNote, setActiveNote] = useState([
-    {
-      type: "paragraph",
-      children: [
-        {
-          text: "",
-        },
-      ],
-    },
-  ]);
+  // const [activeNote, setActiveNote] = useState([
+  //   {
+  //     type: "paragraph",
+  //     children: [
+  //       {
+  //         text: "",
+  //       },
+  //     ],
+  //   },
+  // ]);
 
-  // let { data, loading } = useQuery(GET_MY_NOTES);
-  // if (loading) return <Loader />;
+  let { data, loading } = useQuery(GET_MY_NOTES);
+
+  if (loading) return <Loader />;
+
+  const { getMyNotes : { notes } } = data
+  console.log(notes)
+
+  const parsedNoteValues = notes.map((el) => {
+    const escaped = unescapeQuotesforJSON(el.noteValue)
+    return escaped
+  })
+
+  for (let i=0; i<notes.length; i++) {
+    notes[i].noteValue = parsedNoteValues[i]
+  }
+  console.log(parsedNoteValues, notes)
 
   return (
     <>
