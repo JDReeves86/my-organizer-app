@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { convertToRaw, convertFromRaw, Editor, EditorState, RichUtils } from "draft-js";
+import React, { useState, useEffect } from "react";
+import {
+  convertToRaw,
+  convertFromRaw,
+  Editor,
+  EditorState,
+  RichUtils,
+} from "draft-js";
 import { useMutation } from "@apollo/client";
 
 import { SAVE_NOTE } from "../../utils/mutations";
@@ -9,20 +15,28 @@ import ErrorModal from "../Modals/ErrorModal";
 import { escapeQuotesforJSON } from "../../utils/helpers";
 import "draft-js/dist/Draft.css";
 
-let initialState
-
 function MyEditor({ activeNote }) {
+  const [editorState, setEditorState] = useState({});
 
-  activeNote === undefined
-    ? (initialState = EditorState.createEmpty())
-    : (initialState = EditorState.createWithContent(convertFromRaw(activeNote)));
+  useEffect(() => {
+    activeNote === undefined
+    ? (setEditorState({ editorState: EditorState.createEmpty() }))
+    : (setEditorState({ editorState: EditorState.createWithContent(
+        convertFromRaw(activeNote)) }
+      ));
+  }, [editorState])
 
-  const [editorState, setEditorState] = useState(initialState);
   const [title, setTitle] = useState("Untitled Note");
 
   const [saveNote, { error }] = useMutation(SAVE_NOTE);
 
   if (error) return <ErrorModal message={error.message} activate={true} />;
+
+  if (!editorState) {
+    return (
+      <h1>Loading</h1>
+    )
+  }
 
   const handleKeyCommand = (command, editorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -57,7 +71,6 @@ function MyEditor({ activeNote }) {
       const { data } = await saveNote({
         variables: { input: noteData },
       });
-      console.log(data);
     } catch (err) {
       throw new Error(err);
     }
@@ -101,6 +114,7 @@ function MyEditor({ activeNote }) {
         editorState={editorState}
         onChange={setEditorState}
         handleKeyCommand={handleKeyCommand}
+        
       />
       <Button attr="is-success" action={handleSubmit}>
         Save
