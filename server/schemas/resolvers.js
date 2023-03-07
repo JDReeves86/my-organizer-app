@@ -119,9 +119,9 @@ const resolvers = {
     },
     saveNote: async (parent, { input }, context) => {
       try {
-        console.log(input)
         const newNote = await Note.create({
-          noteValue: input
+          noteValue: input.noteValue,
+          title: input.title
         })
         await User.findByIdAndUpdate(context.user._id, {
           $addToSet: {
@@ -132,7 +132,6 @@ const resolvers = {
       catch (error) {
         console.log(error)
       }
-      console.log(context.user._id)
     }
   },
 };

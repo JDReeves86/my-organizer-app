@@ -21,6 +21,7 @@ const typeDefs = gql`
   type Note {
     _id: ID
     createdAt: String
+    title: String
     noteValue: String
     }
 
@@ -34,6 +35,11 @@ const typeDefs = gql`
     dueDate: String
     active: Boolean
     _id: ID
+  }
+
+  input noteData {
+    noteValue: String
+    title: String
   }
 
   type Query {
@@ -51,7 +57,7 @@ const typeDefs = gql`
     completeTask(_id: ID): Task
     editTask(input: taskData): Task
     deleteTask(_id: ID): Task
-    saveNote(input: String): Note
+    saveNote(input: noteData): Note
   }
 `;
 

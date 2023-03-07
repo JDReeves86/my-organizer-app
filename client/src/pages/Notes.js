@@ -15,33 +15,13 @@ import MyEditor from "../components/DraftComponents/MyEditor";
 function Notes() {
   if (!Auth.loggedIn()) document.location.replace("/login");
 
-  // const [activeNote, setActiveNote] = useState([
-  //   {
-  //     type: "paragraph",
-  //     children: [
-  //       {
-  //         text: "",
-  //       },
-  //     ],
-  //   },
-  // ]);
+  const [activeNote, setActiveNote] = useState();
 
   let { data, loading } = useQuery(GET_MY_NOTES);
 
   if (loading) return <Loader />;
 
   const { getMyNotes : { notes } } = data
-  console.log(notes)
-
-  const parsedNoteValues = notes.map((el) => {
-    const escaped = unescapeQuotesforJSON(el.noteValue)
-    return escaped
-  })
-
-  for (let i=0; i<notes.length; i++) {
-    notes[i].noteValue = parsedNoteValues[i]
-  }
-  console.log(parsedNoteValues, notes)
 
   return (
     <>
@@ -53,11 +33,11 @@ function Notes() {
       <Navbar attr={"has-background-grey-lighter"} />
       <Column columns={true}>
         <Column attr={"is-3 has-background-grey-light"}>
-          {/* <NoteMenu list={data} action={setActiveNote} /> */}
+          <NoteMenu list={data} action={setActiveNote} />
           <div>placeholder</div>
         </Column>
         <Column attr={"is-9"}>
-          <MyEditor />
+          <MyEditor activeNote={unescapeQuotesforJSON(activeNote)}/>
           <section className="section">
             <p className="has-background-dark has-text-white">Note previews</p>
           </section>

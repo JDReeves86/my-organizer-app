@@ -37,7 +37,7 @@ export const GET_MY_NOTES = gql`
       notes {
         _id
         createdAt
-        noteValue
+        title
       }
     }
   }
@@ -49,6 +49,7 @@ export const GET_SINGLE_NOTE = gql`
       _id
       createdAt
       noteValue
+      title
     }
   }
 `;

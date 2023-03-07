@@ -6,6 +6,9 @@ const noteSchema = new Schema(
     noteValue: {
       type: String,
     },
+    title: {
+      type: String
+    },
     createdAt: {
       type: Date,
       default: new Date(),

@@ -37,6 +37,9 @@ const escapeQuotesforJSON = (obj) => {
 }
 
 const unescapeQuotesforJSON = (str) => {
+  if (str === undefined || null) {
+    return
+  }
   const replaced = str.replaceAll("\\", "")
   return (JSON.parse(replaced.substring(1, replaced.length-1)))
 }

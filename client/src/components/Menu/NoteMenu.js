@@ -17,17 +17,15 @@ function NoteMenu({ list, action }) {
   const trimmedNotes = notes.map((el) => {
     return {
       _id: el._id,
-      text: trimNote(el.noteValue[0].children[0].text),
+      text: trimNote(el.title),
     };
   });
 
   const handleClick = async (event) => {
     const clicked = event.target.attributes.noteid.value;
-
     const clickedNote = await getNote({
       variables: { noteId: trimmedNotes[clicked]._id },
     });
-
     action(clickedNote.data.getNote.noteValue);
   };
 

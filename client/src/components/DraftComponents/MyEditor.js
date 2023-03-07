@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { convertToRaw, Editor, EditorState, RichUtils } from "draft-js";
+import { convertToRaw, convertFromRaw, Editor, EditorState, RichUtils } from "draft-js";
 import { useMutation } from "@apollo/client";
 
 import { SAVE_NOTE } from "../../utils/mutations";
@@ -9,10 +9,16 @@ import ErrorModal from "../Modals/ErrorModal";
 import { escapeQuotesforJSON } from "../../utils/helpers";
 import "draft-js/dist/Draft.css";
 
-const initialState = EditorState.createEmpty();
+let initialState
 
-function MyEditor() {
+function MyEditor({ activeNote }) {
+
+  activeNote === undefined
+    ? (initialState = EditorState.createEmpty())
+    : (initialState = EditorState.createWithContent(convertFromRaw(activeNote)));
+
   const [editorState, setEditorState] = useState(initialState);
+  const [title, setTitle] = useState("Untitled Note");
 
   const [saveNote, { error }] = useMutation(SAVE_NOTE);
 
@@ -42,12 +48,16 @@ function MyEditor() {
   const handleSubmit = async () => {
     try {
       const contentState = editorState.getCurrentContent();
-      const stringifiedContent = JSON.stringify(convertToRaw(contentState))
-      const escapedContent = escapeQuotesforJSON(stringifiedContent)
+      const stringifiedContent = JSON.stringify(convertToRaw(contentState));
+      const escapedContent = escapeQuotesforJSON(stringifiedContent);
+      const noteData = {
+        title,
+        noteValue: escapedContent,
+      };
       const { data } = await saveNote({
-        variables: { input: escapedContent },
+        variables: { input: noteData },
       });
-      console.log(data)
+      console.log(data);
     } catch (err) {
       throw new Error(err);
     }
@@ -55,6 +65,16 @@ function MyEditor() {
 
   return (
     <>
+      <div>
+        <input
+          type="text"
+          placeholder="Enter a title"
+          onChange={(event) => {
+            setTitle(event.target.value);
+          }}
+        ></input>
+      </div>
+
       <button
         className="myEditorBtn has-background-grey-lighter"
         id="boldBtn"
@@ -81,7 +101,6 @@ function MyEditor() {
         editorState={editorState}
         onChange={setEditorState}
         handleKeyCommand={handleKeyCommand}
-        placeholder="hello type something"
       />
       <Button attr="is-success" action={handleSubmit}>
         Save
