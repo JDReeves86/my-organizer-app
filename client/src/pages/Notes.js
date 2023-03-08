@@ -11,6 +11,7 @@ import Column from "../components/Columns/Column";
 import Loader from "../components/Loader/Loader";
 import NoteMenu from "../components/Menu/NoteMenu";
 import MyEditor from "../components/DraftComponents/MyEditor";
+import BlankEditor from "../components/DraftComponents/BlankEditor";
 
 function Notes() {
   if (!Auth.loggedIn()) document.location.replace("/login");
@@ -21,7 +22,9 @@ function Notes() {
 
   if (loading) return <Loader />;
 
-  const { getMyNotes : { notes } } = data
+  const {
+    getMyNotes: { notes },
+  } = data;
 
   return (
     <>
@@ -35,8 +38,9 @@ function Notes() {
         <Column attr={"is-3 has-background-grey-light"}>
           <NoteMenu list={data} action={setActiveNote} />
         </Column>
-        <Column attr={"is-9"}>
-          <MyEditor activeNote={activeNote}/>
+        <Column attr={"is-9"}> 
+          {activeNote === undefined && <BlankEditor />}
+          {activeNote !== undefined && <MyEditor activeNote={activeNote} />}
         </Column>
       </Column>
     </>

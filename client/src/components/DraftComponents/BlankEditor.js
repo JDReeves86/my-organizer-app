@@ -18,20 +18,8 @@ import {
 } from "../../utils/helpers";
 import "draft-js/dist/Draft.css";
 
-function MyEditor({ activeNote }) {
+function BlankEditor() {
   const [content, setContent] = useState(EditorState.createEmpty());
-  const [defaultTitle, setDefaultTitle] = useState("");
-
-  useEffect(() => {
-    if (activeNote !== undefined) {
-      const noteContent = unescapeQuotesforJSON(activeNote.noteValue);
-      setDefaultTitle(activeNote.title);
-      setContent(EditorState.createWithContent(convertFromRaw(noteContent)));
-    } else {
-      setContent(EditorState.createEmpty());
-    }
-  }, [activeNote]);
-
   const [title, setTitle] = useState("Untitled Note");
 
   const [saveNote, { error }] = useMutation(SAVE_NOTE);
@@ -65,17 +53,16 @@ function MyEditor({ activeNote }) {
 
   const handleSubmit = async () => {
     try {
-      console.log('update note here!')
-      // const contentState = content.getCurrentContent();
-      // const stringifiedContent = JSON.stringify(convertToRaw(contentState));
-      // const escapedContent = escapeQuotesforJSON(stringifiedContent);
-      // const noteData = {
-      //   title,
-      //   noteValue: escapedContent,
-      // };
-      // const { data } = await saveNote({
-      //   variables: { input: noteData },
-      // });
+      const contentState = content.getCurrentContent();
+      const stringifiedContent = JSON.stringify(convertToRaw(contentState));
+      const escapedContent = escapeQuotesforJSON(stringifiedContent);
+      const noteData = {
+        title,
+        noteValue: escapedContent,
+      };
+      const { data } = await saveNote({
+        variables: { input: noteData },
+      });
     } catch (err) {
       throw new Error(err);
     }
@@ -84,14 +71,14 @@ function MyEditor({ activeNote }) {
   return (
     <>
       <div className="mx-6">
-        <input
-          className="input is-info my-5"
-          type="text"
-          defaultValue={defaultTitle}
-          onChange={(event) => {
-            setTitle(event.target.value);
-          }}
-        ></input>
+          <input
+            className="input is-info my-5"
+            type="text"
+            placeholder="Enter a Title"
+            onChange={(event) => {
+              setTitle(event.target.value);
+            }}
+          ></input>
       </div>
       <div className="mx-6 editorContainer">
         <button
@@ -128,4 +115,4 @@ function MyEditor({ activeNote }) {
   );
 }
 
-export default MyEditor;
+export default BlankEditor;

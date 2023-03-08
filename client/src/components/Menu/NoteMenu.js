@@ -30,7 +30,7 @@ function NoteMenu({ list, action }) {
   };
 
   return (
-    <aside className="menu pl-2 pt-4">
+    <aside className="menu pl-2 pt-4 noteMenu">
       <p className="menu-label has-text-white px-3">My Notes</p>
       <ul className="menu-list">
         <li>

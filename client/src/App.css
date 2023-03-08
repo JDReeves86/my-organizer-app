@@ -38,3 +38,22 @@
 #italicBtn {
     font-style: italic;
 }
+
+.noteMenu {
+    min-height:100vh;
+}
+
+.editorContainer {
+    min-height: 100vh;
+}
+
+.DraftEditor-root {
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    height: 500px;
+}
+
+.DraftEditor-editorContainer,
+.public-DraftEditor-content {
+  height: 100%;
+}
