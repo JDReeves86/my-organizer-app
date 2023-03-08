@@ -34,13 +34,9 @@ function Notes() {
       <Column columns={true}>
         <Column attr={"is-3 has-background-grey-light"}>
           <NoteMenu list={data} action={setActiveNote} />
-          <div>placeholder</div>
         </Column>
         <Column attr={"is-9"}>
-          <MyEditor activeNote={unescapeQuotesforJSON(activeNote)}/>
-          <section className="section">
-            <p className="has-background-dark has-text-white">Note previews</p>
-          </section>
+          <MyEditor activeNote={activeNote}/>
         </Column>
       </Column>
     </>

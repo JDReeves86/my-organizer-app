@@ -12,25 +12,25 @@ import { SAVE_NOTE } from "../../utils/mutations";
 
 import Button from "../Button/Button";
 import ErrorModal from "../Modals/ErrorModal";
-import { escapeQuotesforJSON } from "../../utils/helpers";
+import {
+  escapeQuotesforJSON,
+  unescapeQuotesforJSON,
+} from "../../utils/helpers";
 import "draft-js/dist/Draft.css";
 
 function MyEditor({ activeNote }) {
   const [content, setContent] = useState(EditorState.createEmpty());
-
-  console.log(activeNote);
+  const [defaultTitle, setDefaultTitle] = useState("");
 
   useEffect(() => {
-    activeNote !== undefined
-      ? setContent(EditorState.createWithContent(
-            convertFromRaw(activeNote)
-          ),
-        )
-      : setContent(EditorState.createEmpty());
+    if (activeNote !== undefined) {
+      const noteContent = unescapeQuotesforJSON(activeNote.noteValue);
+      setDefaultTitle(activeNote.title);
+      setContent(EditorState.createWithContent(convertFromRaw(noteContent)));
+    } else {
+      setContent(EditorState.createEmpty());
+    }
   }, [activeNote]);
-
-  console.log(content.getCurrentContent());
-  console.log(content)
 
   const [title, setTitle] = useState("Untitled Note");
 
@@ -83,13 +83,26 @@ function MyEditor({ activeNote }) {
   return (
     <>
       <div>
-        <input
-          type="text"
-          placeholder="Enter a title"
-          onChange={(event) => {
-            setTitle(event.target.value);
-          }}
-        ></input>
+        {activeNote === undefined && (
+          <input
+            className="input"
+            type="text"
+            placeholder="Enter a Title"
+            onChange={(event) => {
+              setTitle(event.target.value);
+            }}
+          ></input>
+        )}
+        {activeNote && (
+          <input
+            className="input"
+            type="text"
+            defaultValue={defaultTitle}
+            onChange={(event) => {
+              setTitle(event.target.value);
+            }}
+          ></input>
+        )}
       </div>
 
       <button
@@ -114,7 +127,7 @@ function MyEditor({ activeNote }) {
         I
       </button>
       <Editor
-        className="myNoteEditor"
+        className="input"
         editorState={content}
         onChange={setContent}
         handleKeyCommand={handleKeyCommand}

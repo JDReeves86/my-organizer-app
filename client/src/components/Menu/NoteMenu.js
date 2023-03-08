@@ -26,7 +26,7 @@ function NoteMenu({ list, action }) {
     const clickedNote = await getNote({
       variables: { noteId: trimmedNotes[clicked]._id },
     });
-    action(clickedNote.data.getNote.noteValue);
+    action(clickedNote.data.getNote);
   };
 
   return (
