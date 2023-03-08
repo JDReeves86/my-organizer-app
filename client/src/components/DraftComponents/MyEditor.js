@@ -8,7 +8,7 @@ import {
 } from "draft-js";
 import { useMutation } from "@apollo/client";
 
-import { SAVE_NOTE } from "../../utils/mutations";
+import { UPDATE_NOTE } from "../../utils/mutations";
 
 import Button from "../Button/Button";
 import ErrorModal from "../Modals/ErrorModal";
@@ -34,7 +34,7 @@ function MyEditor({ activeNote }) {
 
   const [title, setTitle] = useState("Untitled Note");
 
-  const [saveNote, { error }] = useMutation(SAVE_NOTE);
+  const [updateNote, { error }] = useMutation(UPDATE_NOTE);
 
   if (error) return <ErrorModal message={error.message} activate={true} />;
 
@@ -66,16 +66,17 @@ function MyEditor({ activeNote }) {
   const handleSubmit = async () => {
     try {
       console.log('update note here!')
-      // const contentState = content.getCurrentContent();
-      // const stringifiedContent = JSON.stringify(convertToRaw(contentState));
-      // const escapedContent = escapeQuotesforJSON(stringifiedContent);
-      // const noteData = {
-      //   title,
-      //   noteValue: escapedContent,
-      // };
-      // const { data } = await saveNote({
-      //   variables: { input: noteData },
-      // });
+      const contentState = content.getCurrentContent();
+      const stringifiedContent = JSON.stringify(convertToRaw(contentState));
+      const escapedContent = escapeQuotesforJSON(stringifiedContent);
+      const noteData = {
+        title,
+        noteValue: escapedContent,
+        _id: activeNote._id
+      };
+      const { data } = await updateNote({
+        variables: { input: noteData },
+      });
     } catch (err) {
       throw new Error(err);
     }

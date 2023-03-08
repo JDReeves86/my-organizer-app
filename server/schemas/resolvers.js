@@ -132,6 +132,19 @@ const resolvers = {
       catch (error) {
         console.log(error)
       }
+    },
+    updateNote: async (parent, { input }, context) => {
+      try {
+        console.log(input)
+        const updatedNote = await Note.findByIdAndUpdate(input._id, {
+          title: input.title,
+          noteValue: input.noteValue
+        })
+        console.log(updatedNote)
+      } 
+      catch(error) {
+        console.log(error)
+      }
     }
   },
 };

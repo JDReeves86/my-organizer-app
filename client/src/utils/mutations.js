@@ -67,3 +67,13 @@ export const SAVE_NOTE = gql`
     }
   }
 `
+
+export const UPDATE_NOTE = gql`
+  mutation updateNote($input: noteData) {
+    updateNote(input: $input) {
+      noteValue
+      title
+      _id
+    }
+  }
+`

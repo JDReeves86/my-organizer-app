@@ -40,6 +40,7 @@ const typeDefs = gql`
   input noteData {
     noteValue: String
     title: String
+    _id: ID
   }
 
   type Query {
@@ -58,6 +59,7 @@ const typeDefs = gql`
     editTask(input: taskData): Task
     deleteTask(_id: ID): Task
     saveNote(input: noteData): Note
+    updateNote(input: noteData): Note
   }
 `;
 
