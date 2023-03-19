@@ -53,6 +53,7 @@ const resolvers = {
       return { token, user };
     },
     createNewUser: async (parent, { username, password, email }, context) => {
+      console.log('creating new user..')
       try {
         const user = await User.create({
           username,

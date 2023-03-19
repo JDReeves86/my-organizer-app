@@ -28,6 +28,7 @@ function SignupForm() {
   }
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('handlesubmit called')
     if (password !== password2) {
       setHidden("is-visible");
       return;
@@ -144,6 +145,7 @@ function SignupForm() {
               <Button
                 attr={"is-info mr-2 is-normal is-responsive"}
                 action={handleSubmit}
+                type='submit'
               >
                 Submit
               </Button>
@@ -155,6 +157,7 @@ function SignupForm() {
                     payload: "login",
                   });
                 }}
+                type='button'
               >
                 Sign in
               </Button>

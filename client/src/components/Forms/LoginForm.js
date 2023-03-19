@@ -109,6 +109,7 @@ function LoginForm({ props }) {
               <Button
                 attr={"is-info mr-2 is-normal is-responsive"}
                 action={handleSubmit}
+                type='submit'
               >
                 Submit
               </Button>
@@ -120,6 +121,7 @@ function LoginForm({ props }) {
                     payload: "sign up",
                   });
                 }}
+                type="button"
               >
                 Sign up
               </Button>

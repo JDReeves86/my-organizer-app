@@ -26,8 +26,8 @@ function FormInput({
               required
               onChange={action}
             />
-            <span class="icon is-small is-left ">
-              <i class={`fas ${icon}`}></i>
+            <span className="icon is-small is-left ">
+              <i className={`fas ${icon}`}></i>
             </span>
           </div>
         </div>
@@ -44,8 +44,8 @@ function FormInput({
               required
               onChange={action}
             />
-            <span class="icon is-small is-right">
-              <i class={`fas ${icon}`}></i>
+            <span className="icon is-small is-right">
+              <i className={`fas ${icon}`}></i>
             </span>
           </div>
         </div>

@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
 const db = require("./config/connection");
+const mongoose = require('mongoose');
+mongoose.set('strictQuery', true);
 // const cookieParser = require("cookie-parser")
 // const session = require("express-session")
 const { ApolloServer } = require("apollo-server-express");
