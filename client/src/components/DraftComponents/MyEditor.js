@@ -17,10 +17,12 @@ import {
   unescapeQuotesforJSON,
 } from "../../utils/helpers";
 import "draft-js/dist/Draft.css";
+import DeleteModal from "../Modals/DeleteModal";
 
 function MyEditor({ activeNote }) {
   const [content, setContent] = useState(EditorState.createEmpty());
   const [defaultTitle, setDefaultTitle] = useState("");
+  const [deleteNote, setDeleteDesire] = useState(undefined);
 
   useEffect(() => {
     if (activeNote !== undefined) {
@@ -37,7 +39,13 @@ function MyEditor({ activeNote }) {
   const [updateNote, { error }] = useMutation(UPDATE_NOTE);
 
   if (error) return <ErrorModal message={error.message} activate={true} />;
-
+  if (deleteNote === true) return (
+    <DeleteModal
+      message={"Are you sure you want to delete this note?"}
+      activate={true}
+      note={activeNote}
+    />
+  )
   if (!content) {
     return <h1>Loading</h1>;
   }
@@ -65,14 +73,14 @@ function MyEditor({ activeNote }) {
 
   const handleSubmit = async () => {
     try {
-      console.log('update note here!')
+      console.log("update note here!");
       const contentState = content.getCurrentContent();
       const stringifiedContent = JSON.stringify(convertToRaw(contentState));
       const escapedContent = escapeQuotesforJSON(stringifiedContent);
       const noteData = {
         title,
         noteValue: escapedContent,
-        _id: activeNote._id
+        _id: activeNote._id,
       };
       const { data } = await updateNote({
         variables: { input: noteData },
@@ -80,6 +88,15 @@ function MyEditor({ activeNote }) {
     } catch (err) {
       throw new Error(err);
     }
+  };
+
+  const handleDelete = () => {
+      return (
+        <DeleteModal
+          message={"Are you sure you want to delete this note?"}
+          activate={true}
+        />
+      );
   };
 
   return (
@@ -121,8 +138,11 @@ function MyEditor({ activeNote }) {
           onChange={setContent}
           handleKeyCommand={handleKeyCommand}
         />
-        <Button attr="is-info my-4" action={handleSubmit}>
+        <Button attr="is-info m-4" action={handleSubmit}>
           Save
+        </Button>
+        <Button attr="is-danger m-4" action={() => {setDeleteDesire(true)}}>
+          Delete
         </Button>
       </div>
     </>

@@ -145,6 +145,18 @@ const resolvers = {
       catch(error) {
         console.log(error)
       }
+    },
+    deleteNote: async (parent, { _id }, context) => {
+      try {
+        await User.findByIdAndUpdate(context.user._id, {
+          $pull: { notes: _id}
+        })
+        await Note.findByIdAndDelete(_id)
+        return _id
+      }
+      catch(err) {
+        console.log(err)
+      }
     }
   },
 };

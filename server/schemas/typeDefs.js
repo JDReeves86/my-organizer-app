@@ -60,6 +60,7 @@ const typeDefs = gql`
     deleteTask(_id: ID): Task
     saveNote(input: noteData): Note
     updateNote(input: noteData): Note
+    deleteNote(_id: ID): Note
   }
 `;
 
