@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.48a61e15.css",
+    "main.js": "/static/js/main.e5fc8726.js",
+    "static/js/787.09266937.chunk.js": "/static/js/787.09266937.chunk.js",
+    "static/media/paper.jpg": "/static/media/paper.b178a132ace4d28cd7be.jpg",
+    "static/media/giraffe-1120.png": "/static/media/giraffe-1120.73d39be0ca13f54c2772.png",
+    "index.html": "/index.html",
+    "main.48a61e15.css.map": "/static/css/main.48a61e15.css.map",
+    "main.e5fc8726.js.map": "/static/js/main.e5fc8726.js.map",
+    "787.09266937.chunk.js.map": "/static/js/787.09266937.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.48a61e15.css",
+    "static/js/main.e5fc8726.js"
+  ]
+}
