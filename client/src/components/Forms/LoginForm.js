@@ -36,6 +36,7 @@ function LoginForm({ props }) {
     };
 
     try {
+      console.log(submission)
       const { data } = await loginUser({
         variables: { ...submission },
       });
