@@ -19,6 +19,24 @@ export const GET_MY_TASKS = gql`
   }
 `;
 
+export const GET_ME = gql`
+  query getMe {
+    getMe {
+      username
+      createdAt
+      notes {
+        title
+      }
+      activeTasks {
+        createdAt
+      }
+      completedTasks {
+        createdAt
+      }
+    }
+  }
+`
+
 export const GET_SINGLE_TASK = gql`
   query getTask($taskId: ID!) {
     getTask(_id: $taskId) {

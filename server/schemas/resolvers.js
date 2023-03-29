@@ -6,7 +6,8 @@ const { findByIdAndDelete } = require("../models/User");
 const resolvers = {
   Query: {
     getMe: async (parent, args, context) => {
-      console.log(context.user);
+      const activeUser = await User.findById(context.user._id)
+      return activeUser
     },
     getMyTasks: async (parent, args, context) => {
       const activeUser = await User.findById(context.user._id)
